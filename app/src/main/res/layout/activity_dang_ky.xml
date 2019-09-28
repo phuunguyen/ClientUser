@@ -5,5 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DangKyActivity">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="123"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
