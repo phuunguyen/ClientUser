@@ -33,7 +33,7 @@
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/name"
             android:paddingLeft="9dp"
             android:textColor="@color/black" />
@@ -42,15 +42,23 @@
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/phone"
             android:paddingLeft="9dp" />
         <EditText
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/email"
+            android:paddingLeft="9dp"
+            android:textColor="@color/black" />
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btnchuachon"
+            android:hint="@string/address"
             android:paddingLeft="9dp"
             android:textColor="@color/black" />
 
@@ -58,35 +66,36 @@
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/password"
+            android:paddingLeft="9dp" />
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btnchuachon"
+            android:hint="@string/password1"
             android:paddingLeft="9dp" />
 
         <Button
             android:id="@+id/btnDangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_marginTop="30dp"
-            android:padding="20dp"
+            android:padding="15dp"
+            android:background="@drawable/btnthaydoi"
             android:text="@string/dangky" />
 
         <TextView
-            android:id="@+id/txtQMK"
+            android:id="@+id/txtNhapDeDN"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/quenmk"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txtNhapDeDK"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
             android:gravity="center"
             android:text="@string/nhapdn"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
 
     </LinearLayout>

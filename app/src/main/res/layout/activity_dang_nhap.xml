@@ -33,7 +33,7 @@
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/email"
             android:paddingLeft="9dp"
             android:textColor="@color/black" />
@@ -42,7 +42,7 @@
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginTop="25dp"
-            android:background="@color/white"
+            android:background="@drawable/btnchuachon"
             android:hint="@string/password"
             android:paddingLeft="9dp" />
 
@@ -52,16 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:layout_marginTop="30dp"
-            android:padding="20dp"
+            android:padding="15dp"
+            android:background="@drawable/btnthaydoi"
             android:text="@string/dangnhap" />
-
-        <TextView
-            android:id="@+id/txtQMK"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/quenmk"
-            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/txtNhapDeDK"

@@ -14,10 +14,10 @@
         <activity android:name=".TrangThaiActivity" />
         <activity android:name=".GioHangActivity" />
         <activity android:name=".ListDoUongActivity" />
-        <activity android:name=".ListCuaHangActivity" />
+        <activity android:name=".DangNhapActivity" />
         <activity android:name=".QuenMKActivity" />
         <activity android:name=".DangKyActivity" />
-        <activity android:name=".DangNhapActivity">
+        <activity android:name=".ListCuaHangActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
