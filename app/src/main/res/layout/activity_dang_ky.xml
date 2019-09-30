@@ -16,8 +16,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_gravity="center"
             android:src="@drawable/logoapp" />
 
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/dangky"
-            android:textSize="40sp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <EditText
@@ -82,7 +83,7 @@
             android:id="@+id/btnDangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:padding="15dp"
             android:background="@drawable/btnthaydoi"
             android:text="@string/dangky" />
@@ -91,7 +92,7 @@
             android:id="@+id/txtNhapDeDN"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/nhapdn"
             android:textColor="@color/white"
