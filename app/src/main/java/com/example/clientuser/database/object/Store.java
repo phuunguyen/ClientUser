@@ -7,17 +7,19 @@ public class Store {
     int phone;
     String userName;
     String password;
+    String image;
 
     public Store() {
     }
 
-    public Store(String id_Store, String store_Name, String address, int phone, String userName, String password) {
+    public Store(String id_Store, String store_Name, String address, int phone, String userName, String password, String image) {
         this.id_Store = id_Store;
         this.store_Name = store_Name;
         this.address = address;
         this.phone = phone;
         this.userName = userName;
         this.password = password;
+        this.image = image;
     }
 
     public String getId_Store() {
@@ -66,5 +68,13 @@ public class Store {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
