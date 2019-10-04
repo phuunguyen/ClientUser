@@ -2,7 +2,7 @@ package com.example.clientuser.database.object;
 
 public class Product {
     String id_Product;
-    String image;
+    int image;
     String product_Name;
     String id_Store;
     String id_Menu;
@@ -11,12 +11,19 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id_Product, String image, String product_Name, String id_Store, String id_Menu, int price) {
+    public Product(String id_Product, int image, String product_Name, String id_Store, String id_Menu, int price) {
         this.id_Product = id_Product;
         this.image = image;
         this.product_Name = product_Name;
         this.id_Store = id_Store;
         this.id_Menu = id_Menu;
+        this.price = price;
+    }
+
+    public Product(int image, String product_Name, int price)
+    {
+        this.image = image;
+        this.product_Name = product_Name;
         this.price = price;
     }
 
@@ -28,11 +35,11 @@ public class Product {
         this.id_Product = id_Product;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
