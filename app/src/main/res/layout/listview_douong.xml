@@ -34,7 +34,7 @@
                     android:text="adasdsa" />
 
                 <TextView
-                    android:id="@+id/price"
+                    android:id="@+id/product_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="sadds" />
