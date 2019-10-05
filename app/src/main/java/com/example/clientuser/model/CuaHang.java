@@ -3,6 +3,7 @@ package com.example.clientuser.model;
 import android.graphics.Bitmap;
 
 public class CuaHang {
+    private String id;
     private String imageCuaHang;
     private String shopName;
     private String shopAddress;
@@ -11,11 +12,20 @@ public class CuaHang {
     public CuaHang() {
     }
 
-    public CuaHang(String imageCuaHang, String shopName, String shopAddress, double rating) {
+    public CuaHang(String id, String imageCuaHang, String shopName, String shopAddress, double rating) {
+        this.id = id;
         this.imageCuaHang = imageCuaHang;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
         this.rating = rating;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImageCuaHang() {

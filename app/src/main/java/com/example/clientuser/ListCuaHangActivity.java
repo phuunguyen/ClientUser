@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
 import com.example.clientuser.model.CuaHang;
@@ -46,6 +47,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
         adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
         lvDSCH.setAdapter(adapter);
         loadData();
+
     }
 
     private void setControl(){
@@ -67,12 +69,12 @@ public class ListCuaHangActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
