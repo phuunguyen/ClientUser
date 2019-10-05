@@ -1,6 +1,10 @@
 package com.example.clientuser;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.clientuser.Adapter.DoUongAdapter;
@@ -22,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ListDoUongActivity extends AppCompatActivity {
 
     private ListView lvDoUong;
+    private Button btnAddProduct;
     ArrayList<Product> data = new ArrayList<>();
     DoUongAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -32,23 +37,34 @@ public class ListDoUongActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_do_uong);
-
-
         //arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         //lvDoUong.setAdapter(arrayAdapter);
-
         databaseReference = database.getReference();
         setControl();
         setEvent();
     }
     public void setControl(){
         lvDoUong = (ListView) findViewById(R.id.productList);
+        btnAddProduct = (Button)findViewById(R.id.addProducts);
     }
 
     public void setEvent(){
+        // load dữ liệu sản phẩm từ firebase
         adapter = new DoUongAdapter(this, R.layout.listview_douong,data);
         lvDoUong.setAdapter(adapter);
         loadData();
+
+        // thêm sản phẩm vào giỏ hàng
+        lvDoUong.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplication(), GioHangActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     public void loadData(){
