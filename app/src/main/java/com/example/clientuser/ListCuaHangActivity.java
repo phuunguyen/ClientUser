@@ -1,25 +1,16 @@
 package com.example.clientuser;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ListCuaHangActivity extends AppCompatActivity {
 
@@ -37,29 +28,29 @@ public class ListCuaHangActivity extends AppCompatActivity {
         setEvent();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         listViewDrink = findViewById(R.id.lvDSCH);
-        listViewDrink.setAdapter(adapter);
+        //listViewDrink.setAdapter(adapter);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myRef = database.getReference("Store");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String key = data.getKey();
-                    String value = data.getValue().toString();
-                    adapter.add(key + "\n" + value);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-        });
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//        DatabaseReference myRef = database.getReference("Store");
+//
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                adapter.clear();
+//                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                    String key = data.getKey();
+//                    String value = data.getValue().toString();
+//                    adapter.add(key + "\n" + value);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+//            }
+//        });
     }
 
     public void setControl() {
@@ -69,7 +60,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     }
 
     public void setEvent() {
-       // khoiTao();
+       khoiTao();
         CuaHangAdapter adapter = new CuaHangAdapter(this, R.layout.item_dsch, data);
         listViewDrink.setAdapter(adapter);
 

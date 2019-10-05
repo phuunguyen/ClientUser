@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 public class CuaHangAdapter extends ArrayAdapter<CuaHang> {
-    Activity context = null;
+    Context context = null;
     ArrayList<CuaHang> myArray = null;
     int layoutID;
 

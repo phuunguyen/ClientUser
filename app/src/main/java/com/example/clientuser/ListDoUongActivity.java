@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.clientuser.Adapter.DoUongAdapter;
@@ -27,6 +28,7 @@ public class ListDoUongActivity extends AppCompatActivity {
 
     private ListView lvDoUong;
     private Button btnAddProduct;
+    private ImageButton btnBack;
     ArrayList<Product> data = new ArrayList<>();
     DoUongAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -46,6 +48,7 @@ public class ListDoUongActivity extends AppCompatActivity {
     public void setControl(){
         lvDoUong = (ListView) findViewById(R.id.productList);
         btnAddProduct = (Button)findViewById(R.id.addProducts);
+        btnBack = (ImageButton)findViewById(R.id.imgButtonLeft);
     }
 
     public void setEvent(){
@@ -64,7 +67,13 @@ public class ListDoUongActivity extends AppCompatActivity {
             }
         });
 
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), ListCuaHangActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void loadData(){
