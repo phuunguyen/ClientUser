@@ -1,4 +1,4 @@
-package com.example.clientuser.Adapter;
+package com.example.clientuser.adapter;
 
 import android.app.Activity;
 import android.content.Context;

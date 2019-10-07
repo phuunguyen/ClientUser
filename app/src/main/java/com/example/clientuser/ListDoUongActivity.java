@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.clientuser.Adapter.DoUongAdapter;
+import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.model.Product;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
