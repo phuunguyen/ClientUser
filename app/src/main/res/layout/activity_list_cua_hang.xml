@@ -8,19 +8,20 @@
     tools:context=".ListCuaHangActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:layout_marginLeft="5dp"
                 android:layout_width="288dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/edtsearch">
 
                 <ImageView
@@ -32,50 +33,53 @@
 
                 <EditText
 
-                    android:hint="Tìm kiếm"
                     android:layout_width="237dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="2dp"
-                    android:background="@color/white" />
+                    android:background="@color/white"
+                    android:hint="Tìm kiếm" />
 
             </LinearLayout>
 
 
-
             <ImageButton
                 android:id="@+id/btnCart"
-                android:layout_marginLeft="13dp"
-                android:background="@drawable/cart"
                 android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:layout_marginLeft="13dp"
+                android:background="@drawable/cart" />
+
             <ImageButton
                 android:id="@+id/btnUser"
-                android:layout_marginLeft="13dp"
-                android:background="@drawable/ic_person"
                 android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_marginLeft="13dp"
+                android:background="@drawable/ic_person" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_weight="9"
+        android:orientation="vertical">
 
         <TextView
-            android:textColor="@color/white"
-            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:background="@color/green"
             android:gravity="center"
-            android:textStyle="bold"
-            android:text="@string/dsch" />
+            android:text="@string/dsch"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/lvDSCH"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
         </ListView>
 
