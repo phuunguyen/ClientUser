@@ -1,7 +1,5 @@
 package com.example.clientuser.model;
 
-import android.graphics.Bitmap;
-
 public class CuaHang {
     private String id;
     private String imageCuaHang;

@@ -13,13 +13,14 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background="@color/appBackground">
+
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:id="@+id/imgButtonLeft"
-            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
             android:background="@color/appBackground"
-            android:layout_gravity="left"/>
+            android:src="@drawable/ic_arrow_back_black_24dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
             android:id="@+id/tvNameShop"
             android:textStyle="bold"
             android:textSize="25sp"
+            android:textColor="@color/white"
             android:text="Highland Coffee"/>
         <TextView
             android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
             android:id="@+id/tvAddressShop"
             android:textStyle="bold"
             android:textSize="25sp"
+            android:textColor="@color/white"
             android:text="53 Võ Văn Ngân"/>
         <TextView
             android:layout_width="wrap_content"
@@ -42,29 +45,35 @@
             android:gravity="center"
             android:id="@+id/tvPhone"
             android:textSize="20sp"
+            android:textColor="@color/white"
             android:text="123456789"/>
         <TableLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:background="@color/appBackground"
             xmlns:android="http://schemas.android.com/apk/res/android">
-            <TableRow android:gravity="center">
+            <TableRow android:gravity="center"
+                >
                 <Button
                     android:background="@color/appBackground"
                     android:text="Tất cả"
+                    android:textColor="@color/white"
                     android:id="@+id/btnAllProduct"/>
                 <Button
                     android:background="@color/appBackground"
                     android:id="@+id/btnCoffeeProduct"
+                    android:textColor="@color/white"
                     android:text="Coffee" />
                 <Button
                     android:background="@color/appBackground"
                     android:id="@+id/btnBubbleTea"
+                    android:textColor="@color/white"
                     android:text="Trà sữa" />
                 <Button
                     android:background="@color/appBackground"
                     android:id="@+id/btnComboProduct"
+                    android:textColor="@color/white"
                     android:text="Combo" />
             </TableRow>
         </TableLayout>
