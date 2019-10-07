@@ -12,16 +12,20 @@
         <activity android:name=".ThongTinUserActivity"></activity>
         <activity android:name=".DanhGiaActivity" />
         <activity android:name=".TrangThaiActivity" />
-        <activity android:name=".GioHangActivity" />
-        <activity android:name=".ListDoUongActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".GioHangActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+        <activity android:name=".ListDoUongActivity" />
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
         <activity android:name=".ListCuaHangActivity" />
-        <activity android:name=".QuenMKActivity" />
         <activity android:name=".DangKyActivity" />
         <activity android:name=".DangNhapActivity">
 
