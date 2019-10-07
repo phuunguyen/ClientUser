@@ -1,7 +1,7 @@
 package com.example.clientuser.model;
 
 public class CuaHang {
-    private String id;
+    private String idStore;
     private String imageCuaHang;
     private String shopName;
     private String shopAddress;
@@ -10,20 +10,20 @@ public class CuaHang {
     public CuaHang() {
     }
 
-    public CuaHang(String id, String imageCuaHang, String shopName, String shopAddress, double rating) {
-        this.id = id;
+    public CuaHang(String idStore, String imageCuaHang, String shopName, String shopAddress, double rating) {
+        this.idStore = idStore;
         this.imageCuaHang = imageCuaHang;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
         this.rating = rating;
     }
 
-    public String getId() {
-        return id;
+    public String getIdStore() {
+        return idStore;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdStore(String idStore) {
+        this.idStore = idStore;
     }
 
     public String getImageCuaHang() {

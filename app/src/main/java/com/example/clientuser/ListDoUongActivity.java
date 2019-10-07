@@ -2,6 +2,7 @@ package com.example.clientuser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -77,25 +78,27 @@ public class ListDoUongActivity extends AppCompatActivity {
     }
 
     public void loadData(){
+        final Intent intent = getIntent();
+        final String idStore = intent.getStringExtra("idStore");
         databaseReference.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = new Product();
-                product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
-                product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
-                product.setPriceProduct(Double.parseDouble(dataSnapshot.child("Price").getValue().toString()));
-                data.add(product);
+                if(idStore.equals(dataSnapshot.child("Id_store").getValue().toString())){
+                    product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
+                    product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
+                    product.setPriceProduct(Double.parseDouble(dataSnapshot.child("Price").getValue().toString()));
+                    data.add(product);
+                }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                adapter.notifyDataSetChanged();
             }
 
             @Override
