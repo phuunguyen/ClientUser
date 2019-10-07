@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:background="@color/appBackground"
         android:gravity="center"
-        android:orientation="vertical"
-        android:background="@color/appBackground">
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/imgButtonLeft"
@@ -21,60 +21,67 @@
             android:layout_gravity="left"
             android:background="@color/appBackground"
             android:src="@drawable/ic_arrow_back_black_24dp" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:id="@+id/tvNameShop"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:textColor="@color/white"
-            android:text="Highland Coffee"/>
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="Highland Coffee"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/tvAddressShop"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:textColor="@color/white"
-            android:text="53 Võ Văn Ngân"/>
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/tvPhone"
-            android:textSize="20sp"
+            android:text="53 Võ Văn Ngân"
             android:textColor="@color/white"
-            android:text="123456789"/>
-        <TableLayout
-            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123456789"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:paddingTop="5dp"
+            android:layout_height="match_parent"
             android:background="@color/appBackground"
-            xmlns:android="http://schemas.android.com/apk/res/android">
-            <TableRow android:gravity="center"
-                >
+            android:paddingTop="5dp">
+
+            <TableRow android:gravity="center">
+
                 <Button
+                    android:id="@+id/btnAllProduct"
                     android:background="@color/appBackground"
                     android:text="Tất cả"
-                    android:textColor="@color/white"
-                    android:id="@+id/btnAllProduct"/>
+                    android:textColor="@color/white" />
+
                 <Button
-                    android:background="@color/appBackground"
                     android:id="@+id/btnCoffeeProduct"
-                    android:textColor="@color/white"
-                    android:text="Coffee" />
-                <Button
                     android:background="@color/appBackground"
+                    android:text="Coffee"
+                    android:textColor="@color/white" />
+
+                <Button
                     android:id="@+id/btnBubbleTea"
-                    android:textColor="@color/white"
-                    android:text="Trà sữa" />
-                <Button
                     android:background="@color/appBackground"
+                    android:text="Trà sữa"
+                    android:textColor="@color/white" />
+
+                <Button
                     android:id="@+id/btnComboProduct"
-                    android:textColor="@color/white"
-                    android:text="Combo" />
+                    android:background="@color/appBackground"
+                    android:text="Combo"
+                    android:textColor="@color/white" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
@@ -83,11 +90,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6">
+
         <ListView
+            android:id="@+id/productList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/productList">
-        </ListView>
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
 
 </LinearLayout>
