@@ -1,9 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThongTinUserActivity">
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:background="@color/appBackground">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:id="@+id/imgButtonLeft"
+            android:background="@color/appBackground"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:gravity="left"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:text="Thông tin cá nhân"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:id="@+id/imgVEdit"
+            android:paddingLeft="20dp"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_save_black_24dp"
+            android:id="@+id/imgVSave"
+            android:paddingLeft="20dp"
+            android:visibility="gone"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_weight="2"
+
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="286dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="50dp">
+
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="96dp"
+                android:layout_height="83dp"
+                android:src="@drawable/ic_account_circle_black_24dp" />
+            <Button
+                android:id="@+id/btnUpload"
+                android:visibility="gone"
+                android:background="@color/appBackground"
+                android:text="Upload"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:visibility="gone"
+                android:id="@+id/img_Camera"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_camera_alt_black_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Nguyễn Văn An"
+                android:id="@+id/tvUserName"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/edtNameUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone">
+
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_email_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="annguyen@gmail.com"
+                android:id="@+id/tvEmail"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/edtEmailUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_home_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="53 Võ Văn Ngân"
+                android:id="@+id/tvAdress"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/edtAddressUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_phone_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:text="0000000000"
+                android:id="@+id/tvPhone"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edtPhoneUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@color/appBackground"
+                android:text="Đăng xuất" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

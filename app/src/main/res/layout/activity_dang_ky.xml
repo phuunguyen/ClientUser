@@ -31,6 +31,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edtName"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
@@ -40,6 +41,8 @@
             android:textColor="@color/black" />
 
         <EditText
+            android:inputType="phone"
+            android:id="@+id/edtPhone"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -47,6 +50,8 @@
             android:hint="@string/phone"
             android:paddingLeft="9dp" />
         <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/edtEmail"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -55,6 +60,7 @@
             android:paddingLeft="9dp"
             android:textColor="@color/black" />
         <EditText
+            android:id="@+id/edtAddress"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -64,6 +70,8 @@
             android:textColor="@color/black" />
 
         <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edtPassWord"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -72,6 +80,8 @@
             android:paddingLeft="9dp" />
 
         <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edtPassWord1"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"

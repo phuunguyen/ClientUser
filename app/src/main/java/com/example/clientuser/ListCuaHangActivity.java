@@ -35,6 +35,8 @@ public class ListCuaHangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_cua_hang);
         setControl();
         setEvent();
+
+
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         listViewDrink = findViewById(R.id.lvDSCH);
         listViewDrink.setAdapter(adapter);
@@ -69,6 +71,9 @@ public class ListCuaHangActivity extends AppCompatActivity {
     }
 
     public void setEvent() {
+
+        Intent intent = getIntent();
+        final String idUser = intent.getStringExtra("idUser");
        // khoiTao();
         CuaHangAdapter adapter = new CuaHangAdapter(this, R.layout.item_dsch, data);
         listViewDrink.setAdapter(adapter);
@@ -92,8 +97,10 @@ public class ListCuaHangActivity extends AppCompatActivity {
         btnUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ListCuaHangActivity.this, ThongTinUserActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ThongTinUserActivity.class);
+                intent.putExtra("idUser", idUser);
                 startActivity(intent);
+
             }
         });
     }

@@ -30,6 +30,8 @@
             android:textStyle="bold" />
 
         <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/edtEmailDN"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -39,6 +41,8 @@
             android:textColor="@color/black" />
 
         <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edtPassWordDN"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginTop="25dp"
