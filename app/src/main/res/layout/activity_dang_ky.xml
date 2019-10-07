@@ -16,10 +16,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_marginTop="40dp"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:src="@drawable/logoapp" />
 
         <TextView
@@ -30,62 +30,107 @@
             android:textSize="35sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/name"
-            android:paddingLeft="9dp"
-            android:textColor="@color/black" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/phone"
-            android:paddingLeft="9dp" />
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/email"
-            android:paddingLeft="9dp"
-            android:textColor="@color/black" />
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/address"
-            android:paddingLeft="9dp"
-            android:textColor="@color/black" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/name"
+                android:paddingLeft="9dp"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/password"
-            android:paddingLeft="9dp" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/password1"
-            android:paddingLeft="9dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/phone"
+                android:paddingLeft="9dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/email"
+                android:paddingLeft="9dp"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/address"
+                android:paddingLeft="9dp"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/password"
+                android:paddingLeft="9dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btnchuachon"
+                android:hint="@string/password1"
+                android:paddingLeft="9dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnDangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:padding="15dp"
             android:background="@drawable/btnthaydoi"
+            android:padding="15dp"
             android:text="@string/dangky" />
 
         <TextView

@@ -1,6 +1,13 @@
 package com.example.clientuser;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
@@ -12,10 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ListCuaHangActivity extends AppCompatActivity {
 
@@ -37,6 +40,15 @@ public class ListCuaHangActivity extends AppCompatActivity {
         adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
         lvDSCH.setAdapter(adapter);
         loadData();
+
+        lvDSCH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListCuaHangActivity.this, ListDoUongActivity.class);
+                intent.putExtra("idStore", data.get(position).getIdStore());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setControl(){
@@ -47,23 +59,24 @@ public class ListCuaHangActivity extends AppCompatActivity {
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                CuaHang cuaHang = new CuaHang();
-                cuaHang.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
-                cuaHang.setShopName(dataSnapshot.child("shopName").getValue().toString());
-                cuaHang.setShopAddress(dataSnapshot.child("address").getValue().toString());
-                cuaHang.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
-                data.add(cuaHang);
+                CuaHang store = new CuaHang();
+                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
+                store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
+                store.setShopName(dataSnapshot.child("shopName").getValue().toString());
+                store.setShopAddress(dataSnapshot.child("address").getValue().toString());
+                store.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
+                data.add(store);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
