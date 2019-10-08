@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class CartAdapter extends ArrayAdapter<Cart> {
         this.data = data;
     }
 
-    static class CartHolder{
+    static class CartHolder {
         ImageView productImage;
         TextView productName;
         TextView productPrice;
@@ -43,18 +44,18 @@ public class CartAdapter extends ArrayAdapter<Cart> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         CartHolder holder = null;
-        if(row == null){
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        if (row == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResource, parent, false);
 
             holder = new CartHolder();
-            holder.productImage = (ImageView)row.findViewById(R.id.imgProduct);
-            holder.productName = (TextView)row.findViewById(R.id.productName);
-            holder.productPrice = (TextView)row.findViewById(R.id.productPrice);
-            holder.quantity = (TextView)row.findViewById(R.id.quantity);
+            holder.productImage = (ImageView) row.findViewById(R.id.imgProduct);
+            holder.productName = (TextView) row.findViewById(R.id.productName);
+            holder.productPrice = (TextView) row.findViewById(R.id.productPrice);
+            holder.quantity = (TextView) row.findViewById(R.id.quantity);
 
             row.setTag(holder);
-        }else {
+        } else {
             holder = (CartHolder) row.getTag();
         }
 
@@ -62,9 +63,10 @@ public class CartAdapter extends ArrayAdapter<Cart> {
         Picasso.get().load(item.getProductImage()).into(holder.productImage);
         holder.productName.setText(item.getProductName());
         holder.productPrice.setText(item.getProductPrice() + "");
-        holder.quantity.setText(item.getQuantity());
+        holder.quantity.setText(item.getQuantity() + "");
 
         return row;
     }
+
 
 }

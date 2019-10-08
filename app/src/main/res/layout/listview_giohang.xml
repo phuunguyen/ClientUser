@@ -50,10 +50,11 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btnAddQuantity"
+                android:id="@+id/btnDecQuantity"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/quantity"
@@ -64,10 +65,11 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btnMinusQuantity"
+                android:id="@+id/btnIncQuantity"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:focusable="true" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

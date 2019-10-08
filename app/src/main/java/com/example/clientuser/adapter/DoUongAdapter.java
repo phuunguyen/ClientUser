@@ -63,13 +63,13 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
             productHolder.tvNameDoUong = (TextView) row.findViewById(R.id.nameProduct);
             productHolder.Price = (TextView) row.findViewById(R.id.product_Price);
             productHolder.btnAdd = (Button) row.findViewById(R.id.addProducts);
-            productHolder.btnAdd.setTag(position);
-            productHolder.btnAdd.setOnClickListener(voiceButtonClickListener);
+            productHolder.btnAdd.setOnClickListener(ButtonClickListener);
 
             row.setTag(productHolder);
         } else {
             productHolder = (ProductHolder) row.getTag();
         }
+        productHolder.btnAdd.setTag(position);
 
         Product item = arrProduct.get(position);
         Picasso.get().load(item.getImgProduct()).into(productHolder.imgIcon);
@@ -80,7 +80,7 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
     }
 
     ArrayList<String> listProduct = new ArrayList<>();
-    private View.OnClickListener voiceButtonClickListener = new View.OnClickListener() {
+    private View.OnClickListener ButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int position = (Integer) v.getTag();
@@ -90,7 +90,7 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
             ArrayList<String> listProductWithoutDuplicate = new ArrayList<>(set);
             Intent intent = new Intent(v.getContext(), GioHangActivity.class);
             intent.putStringArrayListExtra("listProduct", listProductWithoutDuplicate);
-            ((Activity)context).startActivity(intent);
+            ((Activity) context).startActivity(intent);
             Log.d("AAA", listProductWithoutDuplicate.toString());
         }
     };

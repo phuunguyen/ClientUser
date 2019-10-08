@@ -8,12 +8,12 @@ public class Cart {
     String productImage;
     String productName;
     double productPrice;
-    String quantity;
+    int quantity;
 
     public Cart() {
     }
 
-    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, String quantity) {
+    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, int quantity) {
         this.idGioHang = idGioHang;
         this.idUser = idUser;
         this.idStore = idStore;
@@ -80,11 +80,11 @@ public class Cart {
         this.productPrice = productPrice;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
