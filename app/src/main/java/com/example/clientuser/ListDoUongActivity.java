@@ -11,7 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.clientuser.adapter.DoUongAdapter;
+import com.example.clientuser.adapter.ViewPagerAdapter;
+import com.example.clientuser.fragments.AllProductFragment;
+import com.example.clientuser.fragments.CoffeeFragment;
 import com.example.clientuser.model.Product;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,49 +28,43 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 //import com.example.clientuser.database.object.Product;
 
 public class ListDoUongActivity extends AppCompatActivity {
 
-    private ListView lvDoUong;
-    private Button btnAddProduct;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     private ImageButton btnBack;
     TextView tvShopName, tvShopAddress, tvPhone;
-    ArrayList<Product> data = new ArrayList<>();
-    DoUongAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference;
-
+    DatabaseReference databaseReference = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_do_uong);
-        //arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        //lvDoUong.setAdapter(arrayAdapter);
-        databaseReference = database.getReference();
         setControl();
         setEvent();
     }
 
     public void setControl() {
-        lvDoUong = (ListView) findViewById(R.id.productList);
-        btnAddProduct = (Button) findViewById(R.id.addProducts);
         btnBack = (ImageButton) findViewById(R.id.imgButtonLeft);
         tvPhone = (TextView) findViewById(R.id.tvPhone);
         tvShopAddress = (TextView) findViewById(R.id.tvAddressShop);
         tvShopName = (TextView) findViewById(R.id.tvNameShop);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
     }
 
     public void setEvent() {
+        //Load tablayout
+        setupViewPager();
+        tabLayout.setupWithViewPager(viewPager);
         //Load dữ liệu của cửa hàng
         loadShopInfo();
-
-        // load dữ liệu sản phẩm từ firebase
-        adapter = new DoUongAdapter(this, R.layout.listview_douong, data);
-        lvDoUong.setAdapter(adapter);
-        loadData();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,42 +75,6 @@ public class ListDoUongActivity extends AppCompatActivity {
 
     }
 
-    public void loadData() {
-        final Intent intent = getIntent();
-        final String idStore = intent.getStringExtra("idStore");
-        databaseReference.child("Product").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Product product = new Product();
-                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString())) {
-                    product.setIdProduct(dataSnapshot.child("Id_product").getValue().toString());
-                    product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
-                    product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
-                    product.setPriceProduct(Double.parseDouble(dataSnapshot.child("Price").getValue().toString()));
-                    data.add(product);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void loadShopInfo() {
         //Load dữ liệu của hàng lên textView
@@ -131,5 +93,12 @@ public class ListDoUongActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setupViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AllProductFragment(), "Tất cả");
+        adapter.addFragment(new CoffeeFragment(), "Coffee");
+        viewPager.setAdapter(adapter);
     }
 }
