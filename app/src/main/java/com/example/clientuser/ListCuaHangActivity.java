@@ -1,5 +1,7 @@
 package com.example.clientuser;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +15,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.clientuser.adapter.CuaHangAdapter;
+import com.example.clientuser.model.CuaHang;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,90 +28,62 @@ import java.util.ArrayList;
 
 public class ListCuaHangActivity extends AppCompatActivity {
 
-    private ListView listViewDrink;
-    private ImageButton btnCart, btnUser;
+    ListView lvDSCH;
     ArrayList<CuaHang> data = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    String TAG = "FIREBASE";
-
+    CuaHangAdapter adapter = null;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference mData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_cua_hang);
+        mData = database.getReference();
         setControl();
         setEvent();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        listViewDrink = findViewById(R.id.lvDSCH);
-        listViewDrink.setAdapter(adapter);
+    }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private void setEvent() {
+        adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
+        lvDSCH.setAdapter(adapter);
+        loadData();
+    }
 
-        DatabaseReference myRef = database.getReference("Store");
+    private void setControl(){
+        lvDSCH = (ListView)findViewById(R.id.lvDSCH);
+    }
 
-        myRef.addValueEventListener(new ValueEventListener() {
+    private void loadData(){
+        mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String key = data.getKey();
-                    String value = data.getValue().toString();
-                    adapter.add(key + "\n" + value);
-
-                }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                CuaHang cuaHang = new CuaHang();
+                cuaHang.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
+                cuaHang.setShopName(dataSnapshot.child("shopName").getValue().toString());
+                cuaHang.setShopAddress(dataSnapshot.child("address").getValue().toString());
+                cuaHang.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
+                data.add(cuaHang);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
-
-    public void setControl() {
-        listViewDrink = (ListView) findViewById(R.id.lvDSCH);
-        btnCart = (ImageButton) findViewById(R.id.btnCart);
-        btnUser = (ImageButton) findViewById(R.id.btnUser);
-    }
-
-    public void setEvent() {
-       // khoiTao();
-        CuaHangAdapter adapter = new CuaHangAdapter(this, R.layout.item_dsch, data);
-        listViewDrink.setAdapter(adapter);
-
-        listViewDrink.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-            }
-        });
-
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ListCuaHangActivity.this, GioHangActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ListCuaHangActivity.this, ThongTinUserActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    public void khoiTao() {
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-        data.add(new CuaHang(R.drawable.logoapp, "GongCha", "53 Vo Van Ngan", "5", R.drawable.ic_star));
-
-    }
-
-
 }
