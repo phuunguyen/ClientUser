@@ -35,6 +35,7 @@ import androidx.viewpager.widget.ViewPager;
 public class ListDoUongActivity extends AppCompatActivity {
 
 
+    ImageButton imgGioHang;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageButton btnBack;
@@ -57,6 +58,7 @@ public class ListDoUongActivity extends AppCompatActivity {
         tvShopName = (TextView) findViewById(R.id.tvNameShop);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        imgGioHang = (ImageButton)findViewById(R.id.btnCart);
     }
 
     public void setEvent() {
@@ -72,7 +74,13 @@ public class ListDoUongActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        imgGioHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), GioHangActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

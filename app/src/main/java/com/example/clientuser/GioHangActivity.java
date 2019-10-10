@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,17 +27,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GioHangActivity extends AppCompatActivity {
 
+
     ListView listViewCart;
     Button btnContinue;
     TextView txtTotalPrice;
-    ArrayList<Cart> data = null;
+
+    ArrayList<Cart> data = new ArrayList<>();
     CartAdapter adapter = null;
+    ArrayList<String> listProduct = null;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
 
@@ -49,7 +57,14 @@ public class GioHangActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        data = new ArrayList<>();
+        if (getIntent().getStringArrayListExtra("listProduct") != null) {
+            listProduct = getIntent().getStringArrayListExtra("listProduct");
+            saveArrayList(listProduct, "arrProduct");
+        } else {
+            if(getArrayList("arrProduct") != null){
+                listProduct = getArrayList("arrProduct");
+            }
+        }
         loadData();
         adapter = new CartAdapter(this, R.layout.listview_giohang, data);
         listViewCart.setAdapter(adapter);
@@ -59,17 +74,16 @@ public class GioHangActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
 
     private void setControl() {
         listViewCart = (ListView) findViewById(R.id.lvCart);
         btnContinue = (Button) findViewById(R.id.btnContinue);
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
+
     }
 
     private void loadData() {
-        final List<String> listProduct = getIntent().getStringArrayListExtra("listProduct");
         mData.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -91,7 +105,7 @@ public class GioHangActivity extends AppCompatActivity {
                 for (int i = 0; i < data.size(); i++) {
                     tong += data.get(i).getQuantity() * data.get(i).getProductPrice();
                 }
-                txtTotalPrice.setText(tong + "");
+                txtTotalPrice.setText(tong + " VND");
             }
 
             @Override
@@ -115,4 +129,24 @@ public class GioHangActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void saveArrayList(ArrayList<String> list, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();     // This line is IMPORTANT !!!
+    }
+
+    public ArrayList<String> getArrayList(String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        return gson.fromJson(json, type);
+    }
+
 }

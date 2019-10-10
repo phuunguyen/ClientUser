@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class ListCuaHangActivity extends AppCompatActivity {
 
     ListView lvDSCH;
-    ImageButton imgGioHang;
+
 
     ArrayList<CuaHang> data = new ArrayList<>();
     CuaHangAdapter adapter = null;
@@ -52,18 +52,11 @@ public class ListCuaHangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        imgGioHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), GioHangActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void setControl(){
         lvDSCH = (ListView)findViewById(R.id.lvDSCH);
-        imgGioHang = (ImageButton)findViewById(R.id.btnCart);
+
     }
 
     private void loadData(){
