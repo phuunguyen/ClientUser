@@ -36,7 +36,6 @@ public class GioHangActivity extends AppCompatActivity {
     Button btnContinue;
     TextView txtTotalPrice;
     ArrayList<Cart> data = null;
-    ArrayList<Cart> totalPrice = new ArrayList<>();
     CartAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
