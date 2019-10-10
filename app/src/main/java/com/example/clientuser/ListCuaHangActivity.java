@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 public class ListCuaHangActivity extends AppCompatActivity {
 
     ListView lvDSCH;
+    ImageButton imgGioHang;
+
     ArrayList<CuaHang> data = new ArrayList<>();
     CuaHangAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,10 +52,18 @@ public class ListCuaHangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        imgGioHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), GioHangActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setControl(){
         lvDSCH = (ListView)findViewById(R.id.lvDSCH);
+        imgGioHang = (ImageButton)findViewById(R.id.btnCart);
     }
 
     private void loadData(){
