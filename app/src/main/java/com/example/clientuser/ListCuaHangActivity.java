@@ -79,7 +79,6 @@ public class ListCuaHangActivity extends AppCompatActivity {
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

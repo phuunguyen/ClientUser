@@ -5,25 +5,61 @@ public class Cart {
     String id_User;
     String id_Store;
     String id_Product;
+
+
     int quantity;
     int price;
     int check;
+
+
     String delivery;
     String status;
+
+    String txtMaDH, txtNgayTao, imgSP, imgStar;
+
+
 
     public Cart() {
     }
 
-    public Cart(String id_DonHang, String id_User, String id_Store, String id_Product, int quantity, int price, int check, String delivery, String status) {
+    public Cart(String id_DonHang, String txtMaDH, String txtNgayTao, String imgSP, String imgStar) {
         this.id_DonHang = id_DonHang;
-        this.id_User = id_User;
-        this.id_Store = id_Store;
-        this.id_Product = id_Product;
-        this.quantity = quantity;
-        this.price = price;
-        this.check = check;
-        this.delivery = delivery;
-        this.status = status;
+        this.txtMaDH = txtMaDH;
+        this.txtNgayTao = txtNgayTao;
+        this.imgSP = imgSP;
+        this.imgStar = imgStar;
+    }
+
+    public String getTxtMaDH() {
+        return txtMaDH;
+    }
+
+    public void setTxtMaDH(String txtMaDH) {
+        this.txtMaDH = txtMaDH;
+    }
+
+    public String getTxtNgayTao() {
+        return txtNgayTao;
+    }
+
+    public void setTxtNgayTao(String txtNgayTao) {
+        this.txtNgayTao = txtNgayTao;
+    }
+
+    public String getImgSP() {
+        return imgSP;
+    }
+
+    public void setImgSP(String imgSP) {
+        this.imgSP = imgSP;
+    }
+
+    public String getImgStar() {
+        return imgStar;
+    }
+
+    public void setImgStar(String imgStar) {
+        this.imgStar = imgStar;
     }
 
     public String getId_DonHang() {
