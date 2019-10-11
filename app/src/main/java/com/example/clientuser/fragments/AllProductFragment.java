@@ -89,4 +89,10 @@ public class AllProductFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+    }
 }

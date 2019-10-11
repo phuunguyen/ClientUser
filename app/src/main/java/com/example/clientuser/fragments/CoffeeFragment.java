@@ -90,4 +90,9 @@ public class CoffeeFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+    }
 }

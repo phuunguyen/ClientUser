@@ -2,32 +2,23 @@ package com.example.clientuser;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.adapter.ViewPagerAdapter;
 import com.example.clientuser.fragments.AllProductFragment;
 import com.example.clientuser.fragments.BubbleTeaFragment;
 import com.example.clientuser.fragments.CoffeeFragment;
-import com.example.clientuser.model.Product;
+import com.example.clientuser.fragments.ToppingFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -76,7 +67,6 @@ public class ListDoUongActivity extends AppCompatActivity {
 
     }
 
-
     private void loadShopInfo() {
         //Load dữ liệu của hàng lên textView
         Intent intent = getIntent();
@@ -101,6 +91,9 @@ public class ListDoUongActivity extends AppCompatActivity {
         adapter.addFragment(new AllProductFragment(), "Tất cả");
         adapter.addFragment(new CoffeeFragment(), "Coffee");
         adapter.addFragment(new BubbleTeaFragment(), "Trà Sữa");
+        adapter.addFragment(new ToppingFragment(), "Topping");
+
+
         viewPager.setAdapter(adapter);
     }
 }

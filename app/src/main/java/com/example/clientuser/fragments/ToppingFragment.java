@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 
-public class BubbleTeaFragment extends Fragment {
+public class ToppingFragment extends Fragment {
     private ListView lvDoUong;
     ArrayList<Product> data = new ArrayList<>();
     DoUongAdapter adapter = null;
@@ -58,7 +58,7 @@ public class BubbleTeaFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = new Product();
-                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString()) && dataSnapshot.child("Id_menu").getValue().equals("002")) {
+                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString()) && dataSnapshot.child("Id_menu").getValue().equals("003")) {
                     product.setIdProduct(dataSnapshot.child("Id_product").getValue().toString());
                     product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
                     product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
