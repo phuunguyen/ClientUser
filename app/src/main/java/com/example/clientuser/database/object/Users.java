@@ -5,19 +5,21 @@ public class Users {
     String name;
     String image;
     String email;
+    String address;
     int phone;
     String password;
 
     public Users() {
     }
 
-    public Users(String id_Users, String name, String image, String email, int phone, String password) {
+    public Users(String id_Users, String name, String image, String email, int phone, String password, String address) {
         this.id_Users = id_Users;
         this.name = name;
         this.image = image;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.address = address;
     }
 
     public String getId_Users() {
@@ -66,5 +68,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
