@@ -49,6 +49,12 @@
             android:background="@drawable/btnchuachon"
             android:hint="@string/password"
             android:paddingLeft="9dp" />
+        <RadioButton
+            android:layout_marginTop="10dp"
+            android:id="@+id/rbtGhinho"
+            android:text="Ghi nhớ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnDangNhap"

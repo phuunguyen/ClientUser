@@ -1,20 +1,25 @@
 package com.example.clientuser;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clientuser.database.object.Users;
@@ -34,6 +39,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
+
 import com.squareup.picasso.Picasso;
 
 public class ThongTinUserActivity extends AppCompatActivity {
@@ -58,14 +64,9 @@ public class ThongTinUserActivity extends AppCompatActivity {
         showUsers();
 
 
-
-
-
-
-
     }
 
-    public void choosePhoto(){
+    public void choosePhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
@@ -99,22 +100,21 @@ public class ThongTinUserActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() != null){
+                if (dataSnapshot.getValue() != null) {
                     //Log.d("AAA", dataSnapshot.child("address").getValue().toString());
                     txtName.setText(dataSnapshot.child("name").getValue().toString());
                     txtEmail.setText(dataSnapshot.child("email").getValue().toString());
                     txtAdress.setText(dataSnapshot.child("address").getValue().toString());
                     txtPhone.setText(dataSnapshot.child("phone").getValue().toString());
                 }
-                if(dataSnapshot.child("image").getValue() == null)
-                {
+                if (dataSnapshot.child("image").getValue() == null) {
                     //Toast.makeText(ThongTinUserActivity.this, "Khong co du lieu", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(imgAvt);
                     //imgAvt.setImageBitmap(dataSnapshot.child("image").getValue().toString());
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -149,6 +149,7 @@ public class ThongTinUserActivity extends AppCompatActivity {
 
 
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -168,7 +169,6 @@ public class ThongTinUserActivity extends AppCompatActivity {
                 });
 
 
-
             }
         });
 
@@ -176,60 +176,62 @@ public class ThongTinUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                try {
+                    mData.child("Users").child(idUser).child("name").setValue(edtName.getText().toString());
+                    mData.child("Users").child(idUser).child("address").setValue(edtAdress.getText().toString());
+                    mData.child("Users").child(idUser).child("phone").setValue(Integer.parseInt(edtPhone.getText().toString()));
 
-                mData.child("Users").child(idUser).child("name").setValue(edtName.getText().toString());
-                mData.child("Users").child(idUser).child("address").setValue(edtAdress.getText().toString());
-                mData.child("Users").child(idUser).child("phone").setValue(Integer.parseInt(edtPhone.getText().toString()));
+                    //mData.child("Users").child(idUser).child("image").setValue()
+                    Calendar calendar = Calendar.getInstance();
+                    StorageReference mountainsRef = mStorageRef.child("User " + calendar.getTimeInMillis() + ".png");
+                    imgAvt.setDrawingCacheEnabled(true);
+                    imgAvt.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) imgAvt.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] data = baos.toByteArray();
 
-                //mData.child("Users").child(idUser).child("image").setValue()
-                Calendar calendar = Calendar.getInstance();
-                StorageReference mountainsRef = mStorageRef.child("User " + calendar.getTimeInMillis() + ".png");
-                imgAvt.setDrawingCacheEnabled(true);
-                imgAvt.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) imgAvt.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] data = baos.toByteArray();
+                    UploadTask uploadTask = mountainsRef.putBytes(data);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                            // ...
+                            //String uri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String photoLink = uri.toString();
+                                    mData.child("Users").child(idUser).child("image").setValue(photoLink);
+                                }
+                            });
 
-                UploadTask uploadTask = mountainsRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
-                        //String uri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                        Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String photoLink = uri.toString();
-                                mData.child("Users").child(idUser).child("image").setValue(photoLink);
-                            }
-                        });
-
-                    }
-                });
+                        }
+                    });
 
 
-                imgVSave.setVisibility(View.GONE);
-                imgVEdit.setVisibility(View.VISIBLE);
-                txtName.setVisibility(View.VISIBLE);
-                txtEmail.setVisibility(View.VISIBLE);
-                txtAdress.setVisibility(View.VISIBLE);
-                txtPhone.setVisibility(View.VISIBLE);
+                    imgVSave.setVisibility(View.GONE);
+                    imgVEdit.setVisibility(View.VISIBLE);
+                    txtName.setVisibility(View.VISIBLE);
+                    txtEmail.setVisibility(View.VISIBLE);
+                    txtAdress.setVisibility(View.VISIBLE);
+                    txtPhone.setVisibility(View.VISIBLE);
 
-                edtName.setVisibility(View.GONE);
-                //edtEmail.setVisibility(View.GONE);
-                edtAdress.setVisibility(View.GONE);
-                edtPhone.setVisibility(View.GONE);
-                //btnUL.setVisibility(View.GONE);
-                imgCamera.setVisibility(View.GONE);
-
+                    edtName.setVisibility(View.GONE);
+                    //edtEmail.setVisibility(View.GONE);
+                    edtAdress.setVisibility(View.GONE);
+                    edtPhone.setVisibility(View.GONE);
+                    //btnUL.setVisibility(View.GONE);
+                    imgCamera.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error" ,Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -237,20 +239,55 @@ public class ThongTinUserActivity extends AppCompatActivity {
         btnDX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(getApplicationContext(), DangNhapActivity.class);
-                startActivity(intent1);
+                onBackPressed();
+
             }
         });
 
     }
 
-    public void setControl(){
+    void RemoveDataGhiNho(String user, String pass, boolean check) {
+        SharedPreferences sharedPreferences = getSharedPreferences("DataSaveAccount", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user", user);
+        editor.putString("pass", pass);
+        editor.putBoolean("BtnSave", check);
+        editor.remove(user);
+        editor.apply();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle("Bạn muốn thoát ứng dụng không?")
+                .setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Log.e("HH", " user " + users.getEmail());
+                        //Intent intent = new Intent("END_CALL");
+                        RemoveDataGhiNho("", "", false);
+                        Intent intent1 = new Intent(getApplicationContext(), DangNhapActivity.class);
+                        startActivity(intent1);
+                    }
+                })
+                .setPositiveButton("Đóng", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        builder.show();
+    }
+
+    public void setControl() {
         txtName = (TextView) findViewById(R.id.tvUserName);
         txtEmail = (TextView) findViewById(R.id.tvEmail);
         txtAdress = (TextView) findViewById(R.id.tvAdress);
         txtPhone = (TextView) findViewById(R.id.tvPhone);
         btnDX = (Button) findViewById(R.id.btnLogout);
-        btnUL   = (Button) findViewById(R.id.btnUpload);
+        btnUL = (Button) findViewById(R.id.btnUpload);
         imgAvt = (ImageView) findViewById(R.id.imgProfile);
         imgVEdit = (ImageView) findViewById(R.id.imgVEdit);
         imgVSave = (ImageView) findViewById(R.id.imgVSave);
