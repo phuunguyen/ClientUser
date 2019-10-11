@@ -38,7 +38,7 @@ public class GioHangActivity extends AppCompatActivity {
 
 
     ListView listViewCart;
-    Button btnContinue;
+    ImageButton imgButtonLeft;
     TextView txtTotalPrice;
 
     ArrayList<Cart> data = new ArrayList<>();
@@ -57,18 +57,13 @@ public class GioHangActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        if (getIntent().getStringArrayListExtra("listProduct") != null) {
-            listProduct = getIntent().getStringArrayListExtra("listProduct");
-            saveArrayList(listProduct, "arrProduct");
-        } else {
-            if(getArrayList("arrProduct") != null){
-                listProduct = getArrayList("arrProduct");
-            }
+        if (getArrayList("listProduct") != null) {
+            listProduct = getArrayList("listProduct");
         }
         loadData();
         adapter = new CartAdapter(this, R.layout.listview_giohang, data);
         listViewCart.setAdapter(adapter);
-        btnContinue.setOnClickListener(new View.OnClickListener() {
+        imgButtonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -78,7 +73,7 @@ public class GioHangActivity extends AppCompatActivity {
 
     private void setControl() {
         listViewCart = (ListView) findViewById(R.id.lvCart);
-        btnContinue = (Button) findViewById(R.id.btnContinue);
+        imgButtonLeft = (ImageButton) findViewById(R.id.imgButtonLeft);
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
 
     }
@@ -130,15 +125,6 @@ public class GioHangActivity extends AppCompatActivity {
         });
     }
 
-
-    public void saveArrayList(ArrayList<String> list, String key) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        editor.putString(key, json);
-        editor.apply();     // This line is IMPORTANT !!!
-    }
 
     public ArrayList<String> getArrayList(String key) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);

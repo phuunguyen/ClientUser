@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.clientuser.GioHangActivity;
 import com.example.clientuser.R;
 import com.example.clientuser.model.Product;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -88,10 +89,17 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
             listProduct.add(idProduct);
             Set<String> set = new LinkedHashSet<>(listProduct);
             ArrayList<String> listProductWithoutDuplicate = new ArrayList<>(set);
-            Intent intent = new Intent(v.getContext(), GioHangActivity.class);
-            intent.putStringArrayListExtra("listProduct", listProductWithoutDuplicate);
-            ((Activity) context).startActivity(intent);
-            Log.d("AAA", listProductWithoutDuplicate.toString());
+            saveArrayList(listProductWithoutDuplicate, "listProduct");
+            Toast.makeText(context, "Thêm " + arrProduct.get(position).getNameProduct() + " vào giỏ hàng", Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void saveArrayList(ArrayList<String> list, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();     // This line is IMPORTANT !!!
+    }
 }
