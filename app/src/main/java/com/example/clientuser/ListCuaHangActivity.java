@@ -24,10 +24,10 @@ import java.util.ArrayList;
 public class ListCuaHangActivity extends AppCompatActivity {
 
     ListView lvDSCH;
-
-
+    ImageButton imgUser;
     ArrayList<CuaHang> data = new ArrayList<>();
     CuaHangAdapter adapter = null;
+    String idUser = "";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData;
     @Override
@@ -40,6 +40,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+        idUser = getIntent().getStringExtra("idUser");
         adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
         lvDSCH.setAdapter(adapter);
         loadData();
@@ -52,11 +53,20 @@ public class ListCuaHangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        imgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ThongTinUserActivity.class);
+                intent.putExtra("idUser", idUser);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setControl(){
         lvDSCH = (ListView)findViewById(R.id.lvDSCH);
-
+        imgUser = (ImageButton)findViewById(R.id.btnUser);
     }
 
     private void loadData(){

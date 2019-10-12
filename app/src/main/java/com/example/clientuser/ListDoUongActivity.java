@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.adapter.ViewPagerAdapter;
 import com.example.clientuser.fragments.AllProductFragment;
+import com.example.clientuser.fragments.BubbleTeaFragment;
 import com.example.clientuser.fragments.CoffeeFragment;
+import com.example.clientuser.fragments.ToppingFragment;
 import com.example.clientuser.model.Product;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
@@ -107,6 +109,8 @@ public class ListDoUongActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllProductFragment(), "Tất cả");
         adapter.addFragment(new CoffeeFragment(), "Coffee");
+        adapter.addFragment(new BubbleTeaFragment(), "Trà Sữa");
+        adapter.addFragment(new ToppingFragment(), "Topping");
         viewPager.setAdapter(adapter);
     }
 }

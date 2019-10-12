@@ -1,7 +1,8 @@
 package com.example.clientuser.fragments;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,11 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class CoffeeFragment extends Fragment {
 
+public class ToppingFragment extends Fragment {
     private ListView lvDoUong;
     ArrayList<Product> data = new ArrayList<>();
     DoUongAdapter adapter = null;
@@ -60,7 +58,7 @@ public class CoffeeFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = new Product();
-                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString()) && dataSnapshot.child("Id_menu").getValue().equals("001")) {
+                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString()) && dataSnapshot.child("Id_menu").getValue().equals("003")) {
                     product.setIdProduct(dataSnapshot.child("Id_product").getValue().toString());
                     product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
                     product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
@@ -95,5 +93,4 @@ public class CoffeeFragment extends Fragment {
         super.onResume();
         data.clear();
     }
-
 }
