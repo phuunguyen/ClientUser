@@ -80,7 +80,7 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
         return row;
     }
 
-    ArrayList<String> listProduct = new ArrayList<>();
+    static final ArrayList<String> listProduct = new ArrayList<>();
     private View.OnClickListener ButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

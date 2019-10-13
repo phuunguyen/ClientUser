@@ -1,8 +1,6 @@
 package com.example.clientuser.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,8 +44,7 @@ public class ToppingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData();
-        adapter = new DoUongAdapter(getContext(), R.layout.listview_douong, data);
+        adapter = new DoUongAdapter(getContext(), R.layout.listview_item_douong, data);
         lvDoUong.setAdapter(adapter);
     }
 
@@ -92,5 +89,6 @@ public class ToppingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         data.clear();
+        loadData();
     }
 }

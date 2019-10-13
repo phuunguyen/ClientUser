@@ -48,8 +48,8 @@ public class AllProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData();
-        adapter = new DoUongAdapter(getContext(), R.layout.listview_douong, data);
+
+        adapter = new DoUongAdapter(getContext(), R.layout.listview_item_douong, data);
         lvDoUong.setAdapter(adapter);
     }
 
@@ -88,5 +88,12 @@ public class AllProductFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
     }
 }

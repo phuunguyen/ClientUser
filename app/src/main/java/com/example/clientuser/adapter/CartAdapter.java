@@ -37,6 +37,8 @@ public class CartAdapter extends ArrayAdapter<Cart> {
         TextView productName;
         TextView productPrice;
         TextView quantity;
+        Button btnDecQuantity;
+        Button btnIncQuantity;
     }
 
     @NonNull
@@ -53,11 +55,17 @@ public class CartAdapter extends ArrayAdapter<Cart> {
             holder.productName = (TextView) row.findViewById(R.id.productName);
             holder.productPrice = (TextView) row.findViewById(R.id.productPrice);
             holder.quantity = (TextView) row.findViewById(R.id.quantity);
+            holder.btnDecQuantity = (Button)row.findViewById(R.id.btnDecQuantity);
+            holder.btnIncQuantity = (Button)row.findViewById(R.id.btnDecQuantity);
+
 
             row.setTag(holder);
         } else {
             holder = (CartHolder) row.getTag();
         }
+
+        holder.btnIncQuantity.setTag(position);
+        holder.btnDecQuantity.setTag(position);
 
         Cart item = data.get(position);
         Picasso.get().load(item.getProductImage()).into(holder.productImage);

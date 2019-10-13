@@ -9,11 +9,15 @@ public class Cart {
     String productName;
     double productPrice;
     int quantity;
+    String check;
+    String delivery;
+    String status;
+
 
     public Cart() {
     }
 
-    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, int quantity) {
+    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, int quantity, String check, String delivery, String status) {
         this.idGioHang = idGioHang;
         this.idUser = idUser;
         this.idStore = idStore;
@@ -22,6 +26,9 @@ public class Cart {
         this.productName = productName;
         this.productPrice = productPrice;
         this.quantity = quantity;
+        this.check = check;
+        this.delivery = delivery;
+        this.status = status;
     }
 
     public String getIdGioHang() {
@@ -86,5 +93,29 @@ public class Cart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

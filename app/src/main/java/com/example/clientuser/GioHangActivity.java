@@ -4,24 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.clientuser.adapter.CartAdapter;
-import com.example.clientuser.adapter.CuaHangAdapter;
 import com.example.clientuser.model.Cart;
-import com.example.clientuser.model.CuaHang;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +24,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GioHangActivity extends AppCompatActivity {
 
@@ -59,9 +50,9 @@ public class GioHangActivity extends AppCompatActivity {
     private void setEvent() {
         if (getArrayList("listProduct") != null) {
             listProduct = getArrayList("listProduct");
+            loadData();
         }
-        loadData();
-        adapter = new CartAdapter(this, R.layout.listview_giohang, data);
+        adapter = new CartAdapter(this, R.layout.listview_item_giohang, data);
         listViewCart.setAdapter(adapter);
         imgButtonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
