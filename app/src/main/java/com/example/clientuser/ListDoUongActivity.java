@@ -1,5 +1,6 @@
 package com.example.clientuser;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,7 +47,6 @@ public class ListDoUongActivity extends AppCompatActivity {
     TextView tvShopName, tvShopAddress, tvPhone;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference();
-    String idStore = "";
     private String[] menu_product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,6 @@ public class ListDoUongActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), GioHangActivity.class);
-                intent.putExtra("idStore", idStore);
                 startActivity(intent);
             }
         });
@@ -93,8 +92,8 @@ public class ListDoUongActivity extends AppCompatActivity {
 
     private void loadShopInfo() {
         //Load dữ liệu của hàng lên textView
-        Intent intent = getIntent();
-        idStore = intent.getStringExtra("idStore");
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
+        String idStore = sharedPreferences.getString("IDSTORE", null);
         databaseReference.child("Store").child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

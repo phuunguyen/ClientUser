@@ -3,11 +3,15 @@ package com.example.clientuser;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,16 +32,20 @@ import java.util.ArrayList;
 public class GioHangActivity extends AppCompatActivity {
 
 
-    ListView listViewCart;
+    RecyclerView listViewCart;
     ImageButton imgButtonLeft;
     TextView txtTotalPrice;
+    Button btnOrder;
 
     ArrayList<Cart> data = new ArrayList<>();
     CartAdapter adapter = null;
     ArrayList<String> listProduct = null;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mData = database.getReference();
+    DatabaseReference mDataCart = database.getReference("Cart");
+    DatabaseReference mDataProduct = database.getReference("Product");
+
+    int countCart = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,11 @@ public class GioHangActivity extends AppCompatActivity {
             listProduct = getArrayList("listProduct");
             loadData();
         }
-        adapter = new CartAdapter(this, R.layout.listview_item_giohang, data);
+        adapter = new CartAdapter(this, data);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        listViewCart.setLayoutManager(layoutManager);
         listViewCart.setAdapter(adapter);
         imgButtonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,24 +72,32 @@ public class GioHangActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countCart++;
+                addCartToDB();
+            }
+        });
     }
 
     private void setControl() {
-        listViewCart = (ListView) findViewById(R.id.lvCart);
+        listViewCart = (RecyclerView) findViewById(R.id.lvCart);
         imgButtonLeft = (ImageButton) findViewById(R.id.imgButtonLeft);
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
-
+        btnOrder = (Button) findViewById(R.id.btnOrder);
     }
 
     private void loadData() {
-        mData.child("Product").addChildEventListener(new ChildEventListener() {
+        mDataProduct.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Cart cart = new Cart();
-                cart.setProductImage(dataSnapshot.child("Product_image").getValue().toString());
-                cart.setIdProduct(dataSnapshot.child("Id_product").getValue().toString());
-                cart.setProductName(dataSnapshot.child("Product_name").getValue().toString());
-                cart.setProductPrice(Double.parseDouble(dataSnapshot.child("Price").getValue().toString()));
+                cart.setProductImage(dataSnapshot.child("product_image").getValue().toString());
+                cart.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
+                cart.setProductName(dataSnapshot.child("product_name").getValue().toString());
+                cart.setProductPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
                 cart.setQuantity(1);
                 for (int i = 0; i < listProduct.size(); i++) {
                     if (cart.getIdProduct().equals(listProduct.get(i))) {
@@ -118,7 +138,7 @@ public class GioHangActivity extends AppCompatActivity {
 
 
     public ArrayList<String> getArrayList(String key) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES_LISTPRODUCT", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefs.getString(key, null);
         Type type = new TypeToken<ArrayList<String>>() {
@@ -126,4 +146,14 @@ public class GioHangActivity extends AppCompatActivity {
         return gson.fromJson(json, type);
     }
 
+    public void addCartToDB() {
+        SharedPreferences sp_IDUSER = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+        final String idUser = sp_IDUSER.getString("IDUSER", null);
+        SharedPreferences sp_IDSTORE = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
+        final String idStore = sp_IDSTORE.getString("IDSTORE", null);
+        mDataCart.child("Cart" + countCart).child("id_donhang").setValue("Cart" + countCart);
+        mDataCart.child("Cart" + countCart).child("id_user").setValue(idUser);
+        mDataCart.child("Cart" + countCart).child("id_store").setValue(idStore);
+        mDataCart.child("Cart" + countCart).child("id_product").setValue(listProduct);
+    }
 }

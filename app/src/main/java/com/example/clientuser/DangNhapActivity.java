@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,7 +43,7 @@ public class DangNhapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                //WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dang_nhap);
         setControl();
         setEvent();
@@ -54,6 +56,7 @@ public class DangNhapActivity extends AppCompatActivity {
         edtEmailDN = (EditText) findViewById(R.id.edtEmailDN);
         edtPassDN = (EditText) findViewById(R.id.edtPassWordDN);
     }
+
     private boolean isValidEmailID(String email) {
         String PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(PATTERN);
@@ -76,16 +79,18 @@ public class DangNhapActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                for (int i = 0; i < arrUser.size(); i++){
+                for (int i = 0; i < arrUser.size(); i++) {
                     if (arrUser.get(i).getEmail().equals(edtEmailDN.getText().toString()) && arrUser.get(i).getPassword().equals(edtPassDN.getText().toString())) {
-                            //saveUsers.setLogin(true);
-                            Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            String idDN = arrUser.get(i).getId_Users();
-                            Intent intent = new Intent(DangNhapActivity.this, ListCuaHangActivity.class);
-                            intent.putExtra("idUser", idDN);
-                            startActivity(intent);
-                            finish();
-                            break;
+                        //saveUsers.setLogin(true);
+                        Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        String idDN = arrUser.get(i).getId_Users();
+                        Intent intent = new Intent(DangNhapActivity.this, ListCuaHangActivity.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("IDUSER", idDN).apply();
+                        startActivity(intent);
+                        finish();
+                        break;
 
                     } else {
                         Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
@@ -114,6 +119,7 @@ public class DangNhapActivity extends AppCompatActivity {
                 arrUser.add(us);
 
             }
+
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 

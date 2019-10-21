@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.clientuser.GioHangActivity;
 import com.example.clientuser.R;
 import com.example.clientuser.model.Product;
@@ -29,72 +32,65 @@ import java.util.List;
 import java.util.Set;
 
 
-public class DoUongAdapter extends ArrayAdapter<Product> {
+public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHolder> {
     Context context = null;
-    ArrayList<Product> arrProduct = null;
-    int layoutID;
+    ArrayList<Product> arrProduct = new ArrayList<>();
+    static ArrayList<String> listProduct = new ArrayList<>();
 
-    public DoUongAdapter(Context context, int layoutID, ArrayList<Product> arrProduct) {
-        super(context, layoutID, arrProduct);
+    public DoUongAdapter(Context context, ArrayList<Product> arrProduct) {
         this.context = context;
         this.arrProduct = arrProduct;
-        this.layoutID = layoutID;
     }
 
-    static class ProductHolder {
+    @NonNull
+    @Override
+    public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.listview_item_douong, parent, false);
+        return new ProductHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProductHolder holder, final int position) {
+        holder.Price.setText((int) arrProduct.get(position).getPriceProduct() + " VND");
+        holder.tvNameDoUong.setText(arrProduct.get(position).getNameProduct());
+        Picasso.get().load(arrProduct.get(position).getImgProduct()).into(holder.imgIcon);
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String idProduct = arrProduct.get(position).getIdProduct();
+                listProduct.add(idProduct);
+                Set<String> set = new LinkedHashSet<>(listProduct);
+                ArrayList<String> listProductWithoutDuplicate = new ArrayList<>(set);
+                saveArrayList(listProductWithoutDuplicate, "listProduct");
+                Toast.makeText(context, "Thêm " + arrProduct.get(position).getNameProduct() + " vào giỏ hàng", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return arrProduct.size();
+    }
+
+
+    public class ProductHolder extends RecyclerView.ViewHolder {
         ImageView imgIcon;
         TextView tvNameDoUong, Price;
         Button btnAdd;
+
+        public ProductHolder(@NonNull View itemView) {
+            super(itemView);
+            imgIcon = (ImageView) itemView.findViewById(R.id.imgProduct);
+            tvNameDoUong = (TextView) itemView.findViewById(R.id.nameProduct);
+            Price = (TextView) itemView.findViewById(R.id.product_Price);
+            btnAdd = (Button) itemView.findViewById(R.id.addProducts);
+        }
     }
 
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        ProductHolder productHolder = null;
-
-        if (row == null) {
-            LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
-
-            row = layoutInflater.inflate(layoutID, parent, false);
-
-            productHolder = new ProductHolder();
-            productHolder.imgIcon = (ImageView) row.findViewById(R.id.imgProduct);
-            productHolder.tvNameDoUong = (TextView) row.findViewById(R.id.nameProduct);
-            productHolder.Price = (TextView) row.findViewById(R.id.product_Price);
-            productHolder.btnAdd = (Button) row.findViewById(R.id.addProducts);
-            productHolder.btnAdd.setOnClickListener(ButtonClickListener);
-
-            row.setTag(productHolder);
-        } else {
-            productHolder = (ProductHolder) row.getTag();
-        }
-        productHolder.btnAdd.setTag(position);
-
-        Product item = arrProduct.get(position);
-        Picasso.get().load(item.getImgProduct()).into(productHolder.imgIcon);
-        productHolder.tvNameDoUong.setText(item.getNameProduct());
-        productHolder.Price.setText(item.getPriceProduct() + "");
-
-        return row;
-    }
-
-    static ArrayList<String> listProduct = new ArrayList<>();
-    private View.OnClickListener ButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int position = (Integer) v.getTag();
-            String idProduct = arrProduct.get(position).getIdProduct();
-            listProduct.add(idProduct);
-            Set<String> set = new LinkedHashSet<>(listProduct);
-            ArrayList<String> listProductWithoutDuplicate = new ArrayList<>(set);
-            saveArrayList(listProductWithoutDuplicate, "listProduct");
-            Toast.makeText(context, "Thêm " + arrProduct.get(position).getNameProduct() + " vào giỏ hàng", Toast.LENGTH_SHORT).show();
-        }
-    };
 
     public void saveArrayList(ArrayList<String> list, String key) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences prefs = context.getSharedPreferences("SHARED_PREFERENCES_LISTPRODUCT", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(list);

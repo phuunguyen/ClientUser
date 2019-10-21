@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ToppingFragment">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productList"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

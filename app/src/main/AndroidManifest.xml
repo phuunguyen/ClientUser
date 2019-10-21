@@ -15,13 +15,15 @@
         <activity android:name=".GioHangActivity" />
         <activity android:name=".ListDoUongActivity" />
         <activity android:name=".ListCuaHangActivity">
+
+        </activity>
+        <activity android:name=".DangNhapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DangNhapActivity"></activity>
         <activity android:name=".DangKyActivity"></activity>
 
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,7 +44,6 @@ public class ListCuaHangActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        idUser = getIntent().getStringExtra("idUser");
         adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
         lvDSCH.setAdapter(adapter);
         loadData();
@@ -52,7 +52,9 @@ public class ListCuaHangActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListCuaHangActivity.this, ListDoUongActivity.class);
-                intent.putExtra("idStore", data.get(position).getIdStore());
+                SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("IDSTORE", data.get(position).getIdStore()).apply();
                 startActivity(intent);
             }
         });
@@ -61,7 +63,6 @@ public class ListCuaHangActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ThongTinUserActivity.class);
-                intent.putExtra("idUser", idUser);
                 startActivity(intent);
             }
         });

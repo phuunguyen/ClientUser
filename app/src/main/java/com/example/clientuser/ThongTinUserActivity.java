@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -93,8 +95,8 @@ public class ThongTinUserActivity extends AppCompatActivity {
 
         //saveUsers = new SaveUsers(getApplicationContext());
         // Hien thong tin user
-        final Intent intent = getIntent();
-        final String idUser = intent.getStringExtra("idUser");
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+        final String idUser = sharedPreferences.getString("IDUSER", null);
         //Log.d("AA1", idUser);
         Table_User.child(idUser).addValueEventListener(new ValueEventListener() {
             @Override
