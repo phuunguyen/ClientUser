@@ -60,9 +60,7 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
             public void onClick(View v) {
                 String idProduct = arrProduct.get(position).getIdProduct();
                 listProduct.add(idProduct);
-                Set<String> set = new LinkedHashSet<>(listProduct);
-                ArrayList<String> listProductWithoutDuplicate = new ArrayList<>(set);
-                saveArrayList(listProductWithoutDuplicate, "listProduct");
+                saveArrayList(listProduct, "listProduct");
                 Toast.makeText(context, "Thêm " + arrProduct.get(position).getNameProduct() + " vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });

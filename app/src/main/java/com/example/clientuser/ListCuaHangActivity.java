@@ -112,7 +112,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES_LISTPRODUCT", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove("listProduct").apply();
     }

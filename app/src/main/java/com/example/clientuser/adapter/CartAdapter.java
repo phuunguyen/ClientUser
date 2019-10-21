@@ -45,23 +45,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         Picasso.get().load(data.get(position).getProductImage()).into(holder.productImage);
         holder.productName.setText(data.get(position).getProductName());
         holder.productPrice.setText(data.get(position).getProductPrice() + " VND");
-        holder.quantity.setText(String.valueOf(data.get(position).getQuantity()));
+        holder.quantity.setText("SL: " + data.get(position).getQuantity());
 
-        final int[] quantity = {data.get(position).getQuantity()};
-        holder.btnIncQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quantity[0]++;
-                holder.quantity.setText(String.valueOf(quantity[0]));
-            }
-        });
-        holder.btnDecQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quantity[0]--;
-                holder.quantity.setText(String.valueOf(quantity[0]));
-            }
-        });
     }
 
     @Override
@@ -75,8 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         TextView productName;
         TextView productPrice;
         TextView quantity;
-        Button btnDecQuantity;
-        Button btnIncQuantity;
+
 
         public CartHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,8 +68,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
             productName = (TextView) itemView.findViewById(R.id.productName);
             productPrice = (TextView) itemView.findViewById(R.id.productPrice);
             quantity = (TextView) itemView.findViewById(R.id.edt_quantity);
-            btnDecQuantity = (Button) itemView.findViewById(R.id.btnDecQuantity);
-            btnIncQuantity = (Button) itemView.findViewById(R.id.btnIncQuantity);
+
         }
     }
 }

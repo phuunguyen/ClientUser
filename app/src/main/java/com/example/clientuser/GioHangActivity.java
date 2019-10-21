@@ -10,11 +10,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clientuser.adapter.CartAdapter;
 import com.example.clientuser.model.Cart;
@@ -28,6 +30,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class GioHangActivity extends AppCompatActivity {
 
@@ -40,12 +47,13 @@ public class GioHangActivity extends AppCompatActivity {
     ArrayList<Cart> data = new ArrayList<>();
     CartAdapter adapter = null;
     ArrayList<String> listProduct = null;
-
+    List<String> listWithoutDuplicateElements;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDataCart = database.getReference("Cart");
     DatabaseReference mDataProduct = database.getReference("Product");
 
     int countCart = 0;
+    double tong = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,7 @@ public class GioHangActivity extends AppCompatActivity {
             public void onClick(View v) {
                 countCart++;
                 addCartToDB();
+                Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,16 +107,30 @@ public class GioHangActivity extends AppCompatActivity {
                 cart.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
                 cart.setProductName(dataSnapshot.child("product_name").getValue().toString());
                 cart.setProductPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
-                cart.setQuantity(1);
+                Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
                 for (int i = 0; i < listProduct.size(); i++) {
                     if (cart.getIdProduct().equals(listProduct.get(i))) {
+                        addElement(map, Integer.parseInt(listProduct.get(i)));
+                    }
+                }
+
+                for (Integer key : map.keySet()) {
+                    cart.setQuantity(map.get(key));
+                }
+
+                // Constructing HashSet using listWithDuplicateElements
+                Set<String> set = new HashSet<String>(listProduct);
+
+                // Constructing listWithoutDuplicateElements using set
+                listWithoutDuplicateElements = new ArrayList<String>(set);
+                for (int i = 0; i < listWithoutDuplicateElements.size(); i++) {
+                    if (cart.getIdProduct().equals(listWithoutDuplicateElements.get(i))) {
                         data.add(cart);
                     }
                 }
                 adapter.notifyDataSetChanged();
 
                 //Tính tổng tiền
-                double tong = 0.0;
                 for (int i = 0; i < data.size(); i++) {
                     tong += data.get(i).getQuantity() * data.get(i).getProductPrice();
                 }
@@ -151,9 +174,26 @@ public class GioHangActivity extends AppCompatActivity {
         final String idUser = sp_IDUSER.getString("IDUSER", null);
         SharedPreferences sp_IDSTORE = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
         final String idStore = sp_IDSTORE.getString("IDSTORE", null);
+        List<Integer> quantity = new ArrayList<>();
         mDataCart.child("Cart" + countCart).child("id_donhang").setValue("Cart" + countCart);
         mDataCart.child("Cart" + countCart).child("id_user").setValue(idUser);
         mDataCart.child("Cart" + countCart).child("id_store").setValue(idStore);
-        mDataCart.child("Cart" + countCart).child("id_product").setValue(listProduct);
+        mDataCart.child("Cart" + countCart).child("id_product").setValue(listWithoutDuplicateElements);
+        for(int i = 0; i < data.size(); i++){
+            mDataCart.child("Cart" + countCart).child("quantity").child(String.valueOf(i)).setValue(data.get(i).getQuantity());
+        }
+        mDataCart.child("Cart" + countCart).child("price").setValue(tong);
+        mDataCart.child("Cart" + countCart).child("status").setValue("yes");
+        mDataCart.child("Cart" + countCart).child("delivery").setValue("no");
+        mDataCart.child("Cart" + countCart).child("check").setValue("no");
+    }
+
+    public static void addElement(Map<Integer, Integer> map, int element) {
+        if (map.containsKey(element)) {
+            int count = map.get(element) + 1;
+            map.put(element, count);
+        } else {
+            map.put(element, 1);
+        }
     }
 }
