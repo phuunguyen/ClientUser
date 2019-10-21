@@ -55,11 +55,11 @@ public class BubbleTeaFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = new Product();
-                if (idStore.equals(dataSnapshot.child("Id_store").getValue().toString()) && dataSnapshot.child("Id_menu").getValue().equals("002")) {
-                    product.setIdProduct(dataSnapshot.child("Id_product").getValue().toString());
-                    product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
-                    product.setNameProduct(dataSnapshot.child("Product_name").getValue().toString());
-                    product.setPriceProduct(Double.parseDouble(dataSnapshot.child("Price").getValue().toString()));
+                if (idStore.equals(dataSnapshot.child("id_store").getValue().toString()) && dataSnapshot.child("id_menu").getValue().equals("002")) {
+                    product.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
+                    product.setImgProduct(dataSnapshot.child("product_image").getValue().toString());
+                    product.setNameProduct(dataSnapshot.child("product_name").getValue().toString());
+                    product.setPriceProduct(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
                     data.add(product);
                 }
                 adapter.notifyDataSetChanged();

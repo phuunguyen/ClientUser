@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DanhGiaActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="horizontal"
+        android:background="@color/appBackground">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imgButtonLeft"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+
+            android:layout_gravity="left"
+            android:background="@color/appBackground"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đánh giá"
+            android:textStyle="bold"
+            android:padding="15dp"
+            android:textSize="25sp"
+            android:gravity="center">
+        </TextView>
+
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/ratingDG"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:layout_gravity="center"
+        ></RatingBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhận xét"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+        <EditText
+            android:id="@+id/txtCmt"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/btnchuachon"
+            android:layout_marginTop="20dp"
+            ></EditText>
+
+        <Button
+            android:id="@+id/btnGui"
+            android:layout_margin="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gửi"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:background="@drawable/btnchuachon"></Button>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -46,7 +46,8 @@ public class ListDoUongActivity extends AppCompatActivity {
     TextView tvShopName, tvShopAddress, tvPhone;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference();
-
+    String idStore = "";
+    private String[] menu_product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,7 @@ public class ListDoUongActivity extends AppCompatActivity {
     }
 
     public void setEvent() {
+        menu_product = getResources().getStringArray(R.array.menu_product_value);
         //Load tablayout
         setupViewPager();
         tabLayout.setupWithViewPager(viewPager);
@@ -82,6 +84,7 @@ public class ListDoUongActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), GioHangActivity.class);
+                intent.putExtra("idStore", idStore);
                 startActivity(intent);
             }
         });
@@ -91,13 +94,13 @@ public class ListDoUongActivity extends AppCompatActivity {
     private void loadShopInfo() {
         //Load dữ liệu của hàng lên textView
         Intent intent = getIntent();
-        String idStore = intent.getStringExtra("idStore");
+        idStore = intent.getStringExtra("idStore");
         databaseReference.child("Store").child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tvPhone.setText(dataSnapshot.child("phone").getValue().toString());
                 tvShopAddress.setText(dataSnapshot.child("address").getValue().toString());
-                tvShopName.setText(dataSnapshot.child("shopName").getValue().toString());
+                tvShopName.setText(dataSnapshot.child("store_Name").getValue().toString());
             }
 
             @Override
@@ -109,10 +112,10 @@ public class ListDoUongActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AllProductFragment(), "Tất cả");
-        adapter.addFragment(new CoffeeFragment(), "Coffee");
-        adapter.addFragment(new BubbleTeaFragment(), "Trà Sữa");
-        adapter.addFragment(new ToppingFragment(), "Topping");
+        adapter.addFragment(new AllProductFragment(), menu_product[0]);
+        adapter.addFragment(new CoffeeFragment(), menu_product[1]);
+        adapter.addFragment(new BubbleTeaFragment(),menu_product[2]);
+        adapter.addFragment(new ToppingFragment(), menu_product[3]);
         viewPager.setAdapter(adapter);
     }
 

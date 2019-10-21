@@ -34,7 +34,6 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
     ArrayList<Product> arrProduct = null;
     int layoutID;
 
-
     public DoUongAdapter(Context context, int layoutID, ArrayList<Product> arrProduct) {
         super(context, layoutID, arrProduct);
         this.context = context;
@@ -80,7 +79,7 @@ public class DoUongAdapter extends ArrayAdapter<Product> {
         return row;
     }
 
-    static final ArrayList<String> listProduct = new ArrayList<>();
+    static ArrayList<String> listProduct = new ArrayList<>();
     private View.OnClickListener ButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

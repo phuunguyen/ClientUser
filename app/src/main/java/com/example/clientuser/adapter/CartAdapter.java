@@ -70,11 +70,10 @@ public class CartAdapter extends ArrayAdapter<Cart> {
         Cart item = data.get(position);
         Picasso.get().load(item.getProductImage()).into(holder.productImage);
         holder.productName.setText(item.getProductName());
-        holder.productPrice.setText(item.getProductPrice() + "");
+        holder.productPrice.setText(item.getProductPrice() + "VND");
         holder.quantity.setText(item.getQuantity() + "");
 
         return row;
     }
-
 
 }

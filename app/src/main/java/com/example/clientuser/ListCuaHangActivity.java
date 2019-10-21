@@ -32,6 +32,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     String idUser = "";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,21 +67,21 @@ public class ListCuaHangActivity extends AppCompatActivity {
         });
     }
 
-    private void setControl(){
-        lvDSCH = (ListView)findViewById(R.id.lvDSCH);
-        imgUser = (ImageButton)findViewById(R.id.btnUser);
+    private void setControl() {
+        lvDSCH = (ListView) findViewById(R.id.lvDSCH);
+        imgUser = (ImageButton) findViewById(R.id.btnUser);
     }
 
-    private void loadData(){
+    private void loadData() {
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 CuaHang store = new CuaHang();
-                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
+                store.setIdStore(dataSnapshot.child("id_store").getValue().toString());
                 store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
-                store.setShopName(dataSnapshot.child("shopName").getValue().toString());
+                store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
                 store.setShopAddress(dataSnapshot.child("address").getValue().toString());
-                store.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
+                store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                 data.add(store);
                 adapter.notifyDataSetChanged();
             }

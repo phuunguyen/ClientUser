@@ -15,4 +15,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="menu_product_value">
+        <item name="value0">Tất cả</item>
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
 </resources>
