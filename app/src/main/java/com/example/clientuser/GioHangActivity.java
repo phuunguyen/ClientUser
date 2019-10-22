@@ -19,17 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientuser.adapter.CartAdapter;
+import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.model.Cart;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +54,11 @@ public class GioHangActivity extends AppCompatActivity {
     List<String> listWithoutDuplicateElements;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDataCart = database.getReference("Cart");
+    DatabaseReference mDataMaxID = database.getReference("MaxID");
     DatabaseReference mDataProduct = database.getReference("Product");
 
-    int countCart = 0;
-    double tong = 0.0;
+    int countCart;
+    double tong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,22 @@ public class GioHangActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        mDataMaxID.child("MaxID_Cart").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    countCart = 0;
+                } else {
+                    countCart = Integer.parseInt(dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -131,6 +152,7 @@ public class GioHangActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
                 //Tính tổng tiền
+                tong = 0.0;
                 for (int i = 0; i < data.size(); i++) {
                     tong += data.get(i).getQuantity() * data.get(i).getProductPrice();
                 }
@@ -174,18 +196,22 @@ public class GioHangActivity extends AppCompatActivity {
         final String idUser = sp_IDUSER.getString("IDUSER", null);
         SharedPreferences sp_IDSTORE = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
         final String idStore = sp_IDSTORE.getString("IDSTORE", null);
-        List<Integer> quantity = new ArrayList<>();
         mDataCart.child("Cart" + countCart).child("id_donhang").setValue("Cart" + countCart);
         mDataCart.child("Cart" + countCart).child("id_user").setValue(idUser);
         mDataCart.child("Cart" + countCart).child("id_store").setValue(idStore);
-        mDataCart.child("Cart" + countCart).child("id_product").setValue(listWithoutDuplicateElements);
         for(int i = 0; i < data.size(); i++){
+            mDataCart.child("Cart" + countCart).child("id_product").child(String.valueOf(i)).setValue(data.get(i).getIdProduct());
             mDataCart.child("Cart" + countCart).child("quantity").child(String.valueOf(i)).setValue(data.get(i).getQuantity());
         }
         mDataCart.child("Cart" + countCart).child("price").setValue(tong);
         mDataCart.child("Cart" + countCart).child("status").setValue("yes");
         mDataCart.child("Cart" + countCart).child("delivery").setValue("no");
         mDataCart.child("Cart" + countCart).child("check").setValue("no");
+        Date date = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+        mDataCart.child("Cart" + countCart).child("ngaytao").setValue(ft.format(date));
+
+        mDataMaxID.child("MaxID_Cart").setValue(countCart);
     }
 
     public static void addElement(Map<Integer, Integer> map, int element) {
@@ -196,4 +222,5 @@ public class GioHangActivity extends AppCompatActivity {
             map.put(element, 1);
         }
     }
+
 }

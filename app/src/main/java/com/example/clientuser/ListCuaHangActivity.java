@@ -78,7 +78,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 CuaHang store = new CuaHang();
-                store.setIdStore(dataSnapshot.child("id_store").getValue().toString());
+                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
                 store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
                 store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
                 store.setShopAddress(dataSnapshot.child("address").getValue().toString());
@@ -114,6 +114,6 @@ public class ListCuaHangActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES_LISTPRODUCT", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.remove("listProduct").apply();
+        editor.clear().apply();
     }
 }
