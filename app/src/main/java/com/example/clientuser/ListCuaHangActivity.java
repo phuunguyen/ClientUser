@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
+import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.model.CuaHang;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -115,5 +116,8 @@ public class ListCuaHangActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES_LISTPRODUCT", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear().apply();
+
+        DoUongAdapter doUongAdapter = new DoUongAdapter();
+        doUongAdapter.clearList();
     }
 }

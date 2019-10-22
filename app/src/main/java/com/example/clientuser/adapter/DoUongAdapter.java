@@ -37,6 +37,9 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
     ArrayList<Product> arrProduct = new ArrayList<>();
     static ArrayList<String> listProduct = new ArrayList<>();
 
+    public DoUongAdapter() {
+    }
+
     public DoUongAdapter(Context context, ArrayList<Product> arrProduct) {
         this.context = context;
         this.arrProduct = arrProduct;
@@ -94,5 +97,9 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
         String json = gson.toJson(list);
         editor.putString(key, json);
         editor.apply();     // This line is IMPORTANT !!!
+    }
+
+    public void clearList(){
+        listProduct.clear();
     }
 }
