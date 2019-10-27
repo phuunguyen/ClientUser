@@ -32,33 +32,35 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="30dp"
-            app:hintTextAppearance="@style/GreenTextInputLayout">
+            android:layout_marginRight="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmailDN"
-                android:layout_width="350dp"
-                android:layout_height="40dp"
-                android:background="@drawable/btnchuachon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/email"
                 android:paddingLeft="9dp"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            app:hintTextAppearance="@style/GreenTextInputLayout"
+            android:layout_marginRight="16dp"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPassWordDN"
-                android:layout_width="350dp"
-                android:layout_height="40dp"
-                android:background="@drawable/btnchuachon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingLeft="9dp" />
@@ -83,7 +85,7 @@
             android:layout_marginTop="90dp"
             android:gravity="center"
             android:text="@string/nhapdk"
-            android:textColor="@color/white" />
+            android:textColor="#000000" />
 
 
     </LinearLayout>

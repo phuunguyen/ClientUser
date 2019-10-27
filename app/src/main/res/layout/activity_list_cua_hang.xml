@@ -77,11 +77,12 @@
             android:textStyle="bold" />
 
         <ListView
-
             android:id="@+id/lvDSCH"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="20.0sp">
 
         </ListView>
 

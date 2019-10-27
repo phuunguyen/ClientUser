@@ -25,114 +25,125 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/dangky"
+            android:textColor="#000000"
             android:textSize="40sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            app:hintTextAppearance="@style/GreenTextInputLayout">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtName"
-                android:layout_width="350dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnchuachon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
                 android:hint="@string/name"
                 android:paddingLeft="9dp"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-
-            app:hintTextAppearance="@style/GreenTextInputLayout">
-        <EditText
-            android:id="@+id/edtPhone"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/phone"
-            android:paddingLeft="9dp" />
+            android:layout_marginRight="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/phone"
+                android:paddingLeft="9dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-
-            app:hintTextAppearance="@style/GreenTextInputLayout">
-        <EditText
-            android:id="@+id/edtEmail"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/email"
-            android:paddingLeft="9dp"
-            android:textColor="@color/black" />
+            android:layout_marginRight="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/email"
+                android:paddingLeft="9dp"
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp">
 
-            app:hintTextAppearance="@style/GreenTextInputLayout">
-        <EditText
-            android:id="@+id/edtAddress"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/address"
-            android:paddingLeft="9dp"
-            android:textColor="@color/black" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/address"
+                android:paddingLeft="9dp"
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            app:passwordToggleEnabled="true">
 
-            app:hintTextAppearance="@style/GreenTextInputLayout"
-            app:passwordToggleEnabled="true"
-            >
-        <EditText
-            android:inputType="textPassword"
-            android:id="@+id/edtPassWord"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/password"
-            android:paddingLeft="9dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPassWord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="9dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            app:hintTextAppearance="@style/GreenTextInputLayout"
-            app:passwordToggleEnabled="true"
-            >
-        <EditText
-            android:inputType="textPassword"
-            android:id="@+id/edtPassWord1"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/btnchuachon"
-            android:hint="@string/password1"
-            android:paddingLeft="9dp" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPassWord1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/password1"
+                android:inputType="textPassword"
+                android:paddingLeft="9dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:padding="15dp"
             android:background="@drawable/btnthaydoi"
+            android:padding="15dp"
             android:text="@string/dangky" />
 
         <TextView
@@ -142,7 +153,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/nhapdn"
-            android:textColor="@color/white"
+            android:textColor="#000000"
             android:textSize="15sp" />
 
 

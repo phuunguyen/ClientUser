@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientuser.database.object.Users;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +30,8 @@ import java.util.regex.Pattern;
 public class DangKyActivity extends AppCompatActivity {
 
     TextView txtNhapDeDN;
-    EditText edtName, edtPhone, edtEmail, edtAddress, edtPass, edtPass1;
-    Button btnDK;
+    TextInputEditText edtName, edtPhone, edtEmail, edtAddress, edtPass, edtPass1;
+    MaterialButton btnDK;
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_User = mData.child("Users");
@@ -130,13 +132,13 @@ public class DangKyActivity extends AppCompatActivity {
 
     public void setControl() {
         txtNhapDeDN = (TextView) findViewById(R.id.txtNhapDeDN);
-        btnDK = (Button) findViewById(R.id.btnDangKy);
-        edtName = (EditText) findViewById(R.id.edtName);
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
-        edtAddress = (EditText) findViewById(R.id.edtAddress);
-        edtPhone = (EditText) findViewById(R.id.edtPhone);
-        edtPass = (EditText) findViewById(R.id.edtPassWord);
-        edtPass1 = (EditText) findViewById(R.id.edtPassWord1);
+        btnDK = (MaterialButton) findViewById(R.id.btnDangKy);
+        edtName = (TextInputEditText) findViewById(R.id.edtName);
+        edtEmail = (TextInputEditText) findViewById(R.id.edtEmail);
+        edtAddress = (TextInputEditText) findViewById(R.id.edtAddress);
+        edtPhone = (TextInputEditText) findViewById(R.id.edtPhone);
+        edtPass = (TextInputEditText) findViewById(R.id.edtPassWord);
+        edtPass1 = (TextInputEditText) findViewById(R.id.edtPassWord1);
     }
 
 
