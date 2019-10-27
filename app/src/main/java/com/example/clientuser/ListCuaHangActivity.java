@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
 import com.example.clientuser.adapter.DoUongAdapter;
@@ -38,6 +40,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     DatabaseReference mData;
 
     private ArrayList<String> listStoreName = new ArrayList<>();
+    private ArrayAdapter adapterStoreName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,28 @@ public class ListCuaHangActivity extends AppCompatActivity {
         lvDSCH.setAdapter(adapter);
         loadNameStore();
         loadData();
+        edtSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        data.clear();
+                        if (edtSearch.getText().toString().isEmpty()) {
+                            loadData();
+                        } else {
+                            loadDataSearch(edtSearch.getText().toString());
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         lvDSCH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,8 +108,8 @@ public class ListCuaHangActivity extends AppCompatActivity {
     private void loadData() {
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                CuaHang store = new CuaHang();
+            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+                final CuaHang store = new CuaHang();
                 store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
                 store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
                 store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
@@ -92,7 +117,44 @@ public class ListCuaHangActivity extends AppCompatActivity {
                 store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                 data.add(store);
                 adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void loadDataSearch(final String storeName) {
+        mData.child("Store").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+                final CuaHang store = new CuaHang();
+                if (dataSnapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                    store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
+                    store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
+                    store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
+                    store.setShopAddress(dataSnapshot.child("address").getValue().toString());
+                    store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
+                    data.add(store);
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -144,7 +206,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
 
             }
         });
-        ArrayAdapter adapterStoreName = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listStoreName);
+        adapterStoreName = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listStoreName);
         edtSearch.setAdapter(adapterStoreName);
         edtSearch.setThreshold(1);
     }
