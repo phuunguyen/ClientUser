@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ public class GioHangActivity extends AppCompatActivity {
 
 
     RecyclerView listViewCart;
-    ImageButton imgButtonLeft;
+    ImageView imgButtonLeft;
     TextView txtTotalPrice;
     Button btnOrder;
 
@@ -114,7 +115,7 @@ public class GioHangActivity extends AppCompatActivity {
 
     private void setControl() {
         listViewCart = (RecyclerView) findViewById(R.id.lvCart);
-        imgButtonLeft = (ImageButton) findViewById(R.id.imgButtonLeft);
+        imgButtonLeft = (ImageView) findViewById(R.id.imgButtonLeft);
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
         btnOrder = (Button) findViewById(R.id.btnOrder);
     }
@@ -208,7 +209,7 @@ public class GioHangActivity extends AppCompatActivity {
         mDataCart.child("Cart" + countCart).child("delivery").setValue("no");
         mDataCart.child("Cart" + countCart).child("check").setValue("no");
         Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
         mDataCart.child("Cart" + countCart).child("ngaytao").setValue(ft.format(date));
 
         mDataMaxID.child("MaxID_Cart").setValue(countCart);

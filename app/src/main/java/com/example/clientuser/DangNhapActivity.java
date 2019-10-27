@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientuser.database.object.Users;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,9 +33,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DangNhapActivity extends AppCompatActivity {
-    Button btnDangNhap;
+    MaterialButton btnDangNhap;
     TextView txtNDDK;
-    EditText edtEmailDN, edtPassDN;
+    TextInputEditText edtEmailDN, edtPassDN;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     ArrayList<Users> arrUser = new ArrayList();
 
@@ -51,10 +53,10 @@ public class DangNhapActivity extends AppCompatActivity {
     }
 
     private void setControl() {
-        btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
+        btnDangNhap = (MaterialButton) findViewById(R.id.btnDangNhap);
         txtNDDK = (TextView) findViewById(R.id.txtNhapDeDK);
-        edtEmailDN = (EditText) findViewById(R.id.edtEmailDN);
-        edtPassDN = (EditText) findViewById(R.id.edtPassWordDN);
+        edtEmailDN = (TextInputEditText) findViewById(R.id.edtEmailDN);
+        edtPassDN = (TextInputEditText) findViewById(R.id.edtPassWordDN);
     }
 
     private boolean isValidEmailID(String email) {

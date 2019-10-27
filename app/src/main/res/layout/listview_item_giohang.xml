@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:background="@color/white">
 
 
     <ImageView
@@ -30,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ten"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -38,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gia"
+                android:textColor="#000000"
                 android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -50,13 +53,13 @@
             android:gravity="center">
 
 
-
             <TextView
                 android:id="@+id/edt_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
         </LinearLayout>

@@ -2,27 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/appBackground">
+        android:layout_height="wrap_content">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imgButtonLeft"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/appBackground"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+
             android:gravity="left"
             android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="100dp"
             android:text="Giỏ Hàng"
+            android:textColor="#000000"
             android:textSize="35sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -30,7 +32,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="5">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lvCart"
@@ -41,12 +43,6 @@
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tổng tiền: "
+                android:textColor="#000000"
                 android:textSize="25sp" />
 
             <TextView
@@ -79,16 +76,16 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="0.0 VND"
+                android:textColor="#000000"
                 android:textSize="25sp" />
 
         </LinearLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/appBackground"
             android:text="Đặt hàng" />
     </LinearLayout>
 </LinearLayout>

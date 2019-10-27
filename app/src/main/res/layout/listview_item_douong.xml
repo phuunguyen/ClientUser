@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -29,7 +30,8 @@
                 android:id="@+id/nameProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="adasdsa"
+                android:text="Tên đồ uống"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -37,7 +39,8 @@
                 android:id="@+id/product_Price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sadds"
+                android:text="Giá"
+                android:textColor="#000000"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -47,13 +50,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/addProducts"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icon_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:focusable="true"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Thêm" />
         </LinearLayout>
 
     </LinearLayout>

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -31,9 +33,11 @@ public class ListCuaHangActivity extends AppCompatActivity {
     ImageButton imgUser;
     ArrayList<CuaHang> data = new ArrayList<>();
     CuaHangAdapter adapter = null;
-    String idUser = "";
+    AutoCompleteTextView edtSearch;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData;
+
+    private ArrayList<String> listStoreName = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     private void setEvent() {
         adapter = new CuaHangAdapter(this, R.layout.listview_item_cuahang, data);
         lvDSCH.setAdapter(adapter);
+        loadNameStore();
         loadData();
 
         lvDSCH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,6 +77,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     private void setControl() {
         lvDSCH = (ListView) findViewById(R.id.lvDSCH);
         imgUser = (ImageButton) findViewById(R.id.btnUser);
+        edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
     }
 
     private void loadData() {
@@ -86,6 +92,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
                 store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                 data.add(store);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -108,6 +115,38 @@ public class ListCuaHangActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void loadNameStore() {
+        mData.child("Store").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                listStoreName.add(dataSnapshot.child("store_Name").getValue().toString());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        ArrayAdapter adapterStoreName = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listStoreName);
+        edtSearch.setAdapter(adapterStoreName);
+        edtSearch.setThreshold(1);
     }
 
     @Override

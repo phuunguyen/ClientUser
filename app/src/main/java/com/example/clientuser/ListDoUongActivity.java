@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class ListDoUongActivity extends AppCompatActivity {
     ImageButton imgGioHang;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ImageButton btnBack;
+    private ImageView btnBack;
     TextView tvShopName, tvShopAddress, tvPhone;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference();
@@ -57,7 +58,7 @@ public class ListDoUongActivity extends AppCompatActivity {
     }
 
     public void setControl() {
-        btnBack = (ImageButton) findViewById(R.id.imgButtonLeft);
+        btnBack = (ImageView) findViewById(R.id.imgButtonLeft);
         tvPhone = (TextView) findViewById(R.id.tvPhone);
         tvShopAddress = (TextView) findViewById(R.id.tvAddressShop);
         tvShopName = (TextView) findViewById(R.id.tvNameShop);
