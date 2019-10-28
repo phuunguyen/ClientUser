@@ -218,7 +218,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear().apply();
 
-        DoUongAdapter doUongAdapter = new DoUongAdapter();
+        DoUongAdapter doUongAdapter = new DoUongAdapter(getApplicationContext());
         doUongAdapter.clearList();
     }
 }

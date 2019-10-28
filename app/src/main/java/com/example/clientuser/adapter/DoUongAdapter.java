@@ -35,9 +35,11 @@ import java.util.Set;
 public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHolder> {
     Context context = null;
     ArrayList<Product> arrProduct = new ArrayList<>();
-    static ArrayList<String> listProduct = new ArrayList<>();
 
-    public DoUongAdapter() {
+    public static ArrayList<String> listProduct = new ArrayList<>();
+
+    public DoUongAdapter(Context context) {
+        this.context = context;
     }
 
     public DoUongAdapter(Context context, ArrayList<Product> arrProduct) {
@@ -50,6 +52,7 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
     public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.listview_item_douong, parent, false);
+        context = parent.getContext();
         return new ProductHolder(view);
     }
 
@@ -99,7 +102,16 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
         editor.apply();     // This line is IMPORTANT !!!
     }
 
-    public void clearList(){
+    public void deleteItem(String item) {
+        for (int i = 0; i < listProduct.size(); i++) {
+            if (listProduct.get(i).equals(item)) {
+                listProduct.remove(i);
+            }
+        }
+        saveArrayList(listProduct, "listProduct");
+    }
+
+    public void clearList() {
         listProduct.clear();
     }
 }
