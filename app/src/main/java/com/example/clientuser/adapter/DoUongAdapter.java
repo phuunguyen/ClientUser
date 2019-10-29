@@ -35,9 +35,12 @@ import java.util.Set;
 public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHolder> {
     Context context = null;
     ArrayList<Product> arrProduct = new ArrayList<>();
-    static ArrayList<String> listProduct = new ArrayList<>();
 
-    public DoUongAdapter() {
+    static ArrayList<String> listProduct = new ArrayList<>();
+    ArrayList<String> listRemoved = new ArrayList<>();
+
+    public DoUongAdapter(Context context) {
+        this.context = context;
     }
 
     public DoUongAdapter(Context context, ArrayList<Product> arrProduct) {
@@ -99,7 +102,41 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
         editor.apply();     // This line is IMPORTANT !!!
     }
 
-    public void clearList(){
+    public void deleteItem(String item) {
+        Object[] arrProduct = listProduct.toArray();
+        int n = arrProduct.length;
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (arrProduct[i].equals(item)) {
+                listRemoved.add(arrProduct[i].toString());
+                count++;
+            } else {
+                arrProduct[i - count] = arrProduct[i];
+            }
+        }
+        n -= count;
+
+        listProduct.clear();
+        for (int i = 0; i < n; i++) {
+            listProduct.add(arrProduct[i].toString());
+        }
+//        Log.d("---", listProduct.toString());
+        saveArrayList(listProduct, "listProduct");
+    }
+
+    public void restoreItem(String item) {
+        Log.d("---1", listProduct.toString());
+        for (int i = 0; i < listRemoved.size(); i++) {
+            if(item.equals(listRemoved.get(i))){
+                listProduct.add(listRemoved.get(i));
+//                Log.d("---2", listProduct.toString());
+            }
+        }
+        listRemoved.clear();
+        saveArrayList(listProduct, "listProduct");
+    }
+
+    public void clearList() {
         listProduct.clear();
     }
 }
