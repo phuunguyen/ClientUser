@@ -29,13 +29,14 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
                     android:hint="Tìm kiếm">
 
                     <AutoCompleteTextView
                         android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:drawableRight="@drawable/ic_search" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -46,9 +47,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="16dp"
                 android:layout_weight="0.5"
-                android:gravity="right">
+                android:gravity="center">
 
                 <ImageButton
                     android:id="@+id/btnUser"

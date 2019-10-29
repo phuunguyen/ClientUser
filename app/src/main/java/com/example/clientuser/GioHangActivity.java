@@ -141,10 +141,9 @@ public class GioHangActivity extends AppCompatActivity {
 
                 final int position = viewHolder.getAdapterPosition();
                 final Cart item = adapter.getData().get(position);
-
-                adapter.removeItem(position);
                 doUongAdapter.deleteItem(item.getIdProduct());
-                Toast.makeText(mContext, "Đã xóa " + item.getProductName(), Toast.LENGTH_SHORT).show();
+                adapter.removeItem(position);
+
 
                 tong = 0.0;
 
@@ -154,27 +153,27 @@ public class GioHangActivity extends AppCompatActivity {
                 txtTotalPrice.setText(tong + " VND");
 
 
-//                Snackbar snackbar = Snackbar
-//                        .make(coordinatorLayout, "Đã xóa đồ uống khỏi danh sách", Snackbar.LENGTH_LONG);
-//                snackbar.setAction("Hoàn tác", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                        adapter.restoreItem(item, position);
-//
-//                        tong = 0.0;
-//
-//                        for (int j = 0; j < data.size(); j++) {
-//                            tong += data.get(j).getQuantity() * data.get(j).getProductPrice();
-//                        }
-//                        txtTotalPrice.setText(tong + " VND");
-//
-//                        listViewCart.scrollToPosition(position);
-//                    }
-//                });
-//
-//                snackbar.setActionTextColor(ContextCompat.getColor(GioHangActivity.this, R.color.colorPrimary));
-//                snackbar.show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Đã xóa đồ uống khỏi danh sách", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Hoàn tác", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        doUongAdapter.restoreItem(item.getIdProduct());
+                        adapter.restoreItem(item, position);
+
+                        tong = 0.0;
+
+                        for (int j = 0; j < data.size(); j++) {
+                            tong += data.get(j).getQuantity() * data.get(j).getProductPrice();
+                        }
+                        txtTotalPrice.setText(tong + " VND");
+
+                        listViewCart.scrollToPosition(position);
+                    }
+                });
+
+                snackbar.setActionTextColor(ContextCompat.getColor(GioHangActivity.this, R.color.colorPrimary));
+                snackbar.show();
 
             }
         };
