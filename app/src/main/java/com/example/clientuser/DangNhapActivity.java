@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,8 @@ public class DangNhapActivity extends AppCompatActivity {
     TextInputEditText edtEmailDN, edtPassDN;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     ArrayList<Users> arrUser = new ArrayList();
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -87,9 +90,10 @@ public class DangNhapActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         String idDN = arrUser.get(i).getId_Users();
                         Intent intent = new Intent(DangNhapActivity.this, ListCuaHangActivity.class);
-                        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+                        final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("IDUSER", idDN).apply();
+                        editor.commit();
                         startActivity(intent);
                         finish();
                         break;
@@ -142,5 +146,17 @@ public class DangNhapActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+        String idUser = sharedPreferences.getString("IDUSER", "");
+        if (!idUser.isEmpty()) {
+            Intent intent = new Intent(getApplicationContext(), ListCuaHangActivity.class);
+            startActivity(intent);
+
+        }
     }
 }

@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Calendar;
 
-public class ThongTinUserActivity extends AppCompatActivity {
+public class ThongTinUserActivity extends AppCompatActivity{
 
     TextView txtName, txtEmail, txtAdress, txtPhone;
     EditText edtName, edtEmail, edtAdress, edtPhone;
@@ -56,6 +57,7 @@ public class ThongTinUserActivity extends AppCompatActivity {
     Users users = new Users();
     int REQUEST_CHOOSE_PHOTO = 1;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +97,11 @@ public class ThongTinUserActivity extends AppCompatActivity {
 
         //saveUsers = new SaveUsers(getApplicationContext());
         // Hien thong tin user
-        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
-        final String idUser = sharedPreferences.getString("IDUSER", null);
+
         //Log.d("AA1", idUser);
+         final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+        final String idUser = sharedPreferences.getString("IDUSER", null);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         Table_User.child(idUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -230,6 +234,8 @@ public class ThongTinUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //saveUsers = new SaveUsers(getApplicationContext());
+                editor.clear();
+                editor.commit();
                 Intent intent1 = new Intent(getApplicationContext(), DangNhapActivity.class);
                 startActivity(intent1);
                 finish();

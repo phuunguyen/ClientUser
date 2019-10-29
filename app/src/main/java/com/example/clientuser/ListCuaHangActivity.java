@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientuser.adapter.CuaHangAdapter;
@@ -29,8 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ListCuaHangActivity extends AppCompatActivity {
+public class ListCuaHangActivity extends AppCompatActivity implements View.OnClickListener{
 
+    TextView txtT;
     ListView lvDSCH;
     ImageButton imgUser;
     ArrayList<CuaHang> data = new ArrayList<>();
@@ -42,6 +44,9 @@ public class ListCuaHangActivity extends AppCompatActivity {
     private ArrayList<String> listStoreName = new ArrayList<>();
     private ArrayAdapter adapterStoreName;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,13 @@ public class ListCuaHangActivity extends AppCompatActivity {
         mData = database.getReference();
         setControl();
         setEvent();
+        initPreferences();
+
+    }
+    private void initPreferences() {
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharedPreferences.edit();
     }
 
     private void setEvent() {
@@ -100,6 +112,7 @@ public class ListCuaHangActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        txtT = (TextView) findViewById(R.id.txtTest);
         lvDSCH = (ListView) findViewById(R.id.lvDSCH);
         imgUser = (ImageButton) findViewById(R.id.btnUser);
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
@@ -220,5 +233,22 @@ public class ListCuaHangActivity extends AppCompatActivity {
 
         DoUongAdapter doUongAdapter = new DoUongAdapter();
         doUongAdapter.clearList();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == editor.putString("SHARED_PREFERENCES_IDUSER", "")){
+            editor.commit();
+        }
+    }
+
+    boolean shouldAllowBack = false;
+
+    @Override
+    public void onBackPressed() {
+        if (!shouldAllowBack) {
+        } else {
+            super.onBackPressed();
+        }
     }
 }
