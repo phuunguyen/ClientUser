@@ -112,7 +112,6 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setControl() {
-        txtT = (TextView) findViewById(R.id.txtTest);
         lvDSCH = (ListView) findViewById(R.id.lvDSCH);
         imgUser = (ImageButton) findViewById(R.id.btnUser);
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
