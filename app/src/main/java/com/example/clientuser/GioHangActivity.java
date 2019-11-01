@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class GioHangActivity extends AppCompatActivity {
 
 
     RecyclerView listViewCart;
-    ImageView imgButtonLeft;
+    ImageView imgButtonLeft, imgListOrder;
     TextView txtTotalPrice;
     Button btnOrder;
 
@@ -121,6 +122,16 @@ public class GioHangActivity extends AppCompatActivity {
                 countCart++;
                 addCartToDB();
                 Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                data.clear();
+                adapter.notifyDataSetChanged();
+                txtTotalPrice.setText(0.0 + "");
+            }
+        });
+
+        imgListOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GioHangActivity.this, TrangThaiActivity.class));
             }
         });
     }
@@ -128,6 +139,7 @@ public class GioHangActivity extends AppCompatActivity {
     private void setControl() {
         listViewCart = (RecyclerView) findViewById(R.id.lvCart);
         imgButtonLeft = (ImageView) findViewById(R.id.imgButtonLeft);
+        imgListOrder = (ImageView) findViewById(R.id.imgListOrder);
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
         btnOrder = (Button) findViewById(R.id.btnOrder);
         coordinatorLayout = (LinearLayout) findViewById(R.id.coordinatorLayout);

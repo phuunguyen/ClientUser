@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.clientuser.adapter.TrangThaiAdapter;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class TrangThaiActivity extends AppCompatActivity {
     private ListView lvDonHang;
-    ImageButton btnDanhGia, btnBack;
+    ImageView btnDanhGia, btnBack;
 
     ArrayList<Cart> data = new ArrayList<>();
     TrangThaiAdapter adapter = null;
@@ -55,22 +55,16 @@ public class TrangThaiActivity extends AppCompatActivity {
     }
 
     private void setControl() {
-        btnDanhGia = findViewById(R.id.btnDanhGia);
-        lvDonHang = findViewById(R.id.lvDH);
-        btnBack = findViewById(R.id.imgButtonLeft);
+        btnDanhGia = (ImageView) findViewById(R.id.btnDanhGia);
+        lvDonHang = (ListView) findViewById(R.id.lvDH);
+        btnBack = (ImageView) findViewById(R.id.imgButtonLeft);
     }
 
-    private void loadData (){
+    private void loadData() {
         mData.child("Status").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Cart cart = new Cart();
-                cart.setProductImage(dataSnapshot.child("image").getValue().toString());
-                cart.setIdGioHang(dataSnapshot.child("madonhang").getValue().toString());
-                cart.setTxtNgayTao(dataSnapshot.child("ngaytaodh").getValue().toString());
-                cart.setImgStar(dataSnapshot.child("rating").getValue().toString());
-                data.add(cart);
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
