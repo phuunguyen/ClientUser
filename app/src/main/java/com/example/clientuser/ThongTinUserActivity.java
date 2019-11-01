@@ -184,8 +184,8 @@ public class ThongTinUserActivity extends AppCompatActivity{
 
                 //mData.child("Users").child(idUser).child("image").setValue()
 
-                Calendar calendar = Calendar.getInstance();
-                StorageReference mountainsRef = mStorageRef.child("User " + calendar.getTimeInMillis() + ".png");
+                //Calendar calendar = Calendar.getInstance();
+                StorageReference mountainsRef = mStorageRef.child(idUser + ".png");
                 imgAvt.setDrawingCacheEnabled(true);
                 imgAvt.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) imgAvt.getDrawable()).getBitmap();
