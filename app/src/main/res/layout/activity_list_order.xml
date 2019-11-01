@@ -47,13 +47,13 @@
         android:layout_height="0dp"
         android:layout_weight="5">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
             android:id="@+id/lvOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="false">
 
-        </androidx.recyclerview.widget.RecyclerView>
+        </ListView>
     </LinearLayout>
 
 </LinearLayout>

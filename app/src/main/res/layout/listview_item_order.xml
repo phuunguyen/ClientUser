@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgSP"
+            android:id="@+id/imgOrder"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/white" />
