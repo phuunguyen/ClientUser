@@ -9,14 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThongTinUserActivity"></activity>
+        <activity android:name=".ListOrderActivity"></activity>
+        <activity android:name=".ThongTinUserActivity" />
         <activity android:name=".DanhGiaActivity" />
         <activity android:name=".TrangThaiActivity" />
         <activity android:name=".GioHangActivity" />
         <activity android:name=".ListDoUongActivity" />
-        <activity android:name=".ListCuaHangActivity">
-
-        </activity>
+        <activity android:name=".ListCuaHangActivity"></activity>
         <activity android:name=".DangNhapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DangKyActivity"></activity>
-
-
+        <activity android:name=".DangKyActivity" />
     </application>
 
 </manifest>

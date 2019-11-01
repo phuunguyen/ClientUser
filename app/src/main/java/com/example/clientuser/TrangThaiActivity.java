@@ -1,6 +1,5 @@
 package com.example.clientuser;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +10,8 @@ import android.widget.ListView;
 
 import com.example.clientuser.adapter.TrangThaiAdapter;
 import com.example.clientuser.model.Cart;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -49,9 +45,17 @@ public class TrangThaiActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new TrangThaiAdapter(this, R.layout.listview_trangthai, data);
-        lvDonHang.setAdapter(adapter);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         loadData();
+        adapter = new TrangThaiAdapter(this, R.layout.listview_item_order, data);
+        lvDonHang.setAdapter(adapter);
+
     }
 
     private void setControl() {
@@ -61,17 +65,7 @@ public class TrangThaiActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        mData.child("Status").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 
