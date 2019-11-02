@@ -4,43 +4,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="4"
         android:orientation="horizontal"
         >
 
-        <ImageButton
+        <ImageView
+            android:layout_margin="5dp"
             android:id="@+id/imgButtonLeft"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.5"
-            android:gravity="left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
             android:text="Thông tin cá nhân"
             android:textSize="25sp"
             android:layout_gravity="center"
             android:gravity="center"/>
         <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_edit_black_24dp"
             android:id="@+id/imgVEdit"
-            android:paddingLeft="20dp"
             />
         <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_save_black_24dp"
             android:id="@+id/imgVSave"
-            android:paddingLeft="20dp"
             android:visibility="gone"
             />
 
@@ -99,6 +94,7 @@
                 android:src="@drawable/ic_person_black_24dp"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
@@ -107,17 +103,24 @@
                 android:layout_gravity="center"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
-            <EditText
-                android:id="@+id/edtNameUser"
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:visibility="gone">
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="16dp">
 
-            </EditText>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNameUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,6 +162,7 @@
                 android:src="@drawable/ic_home_black_24dp"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
@@ -167,15 +171,24 @@
                 android:layout_gravity="center"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
-            <EditText
-                android:id="@+id/edtAddressUser"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:visibility="gone"/>
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:visibility="gone"
+                    android:id="@+id/edtAddressUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -196,15 +209,23 @@
                 android:id="@+id/tvPhone"
                 android:textSize="25sp"
                 android:textStyle="bold" />
-            <EditText
-                android:id="@+id/edtPhoneUser"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:visibility="gone"/>
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:visibility="gone"
+                    android:id="@+id/edtPhoneUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout

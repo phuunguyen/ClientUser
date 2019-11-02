@@ -1,9 +1,12 @@
 package com.example.clientuser;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.clientuser.adapter.TrangThaiAdapter;
 import com.example.clientuser.database.object.Rating;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,8 +42,6 @@ public class DanhGiaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_gia);
-
-
         setControl();
         setEvent();
     }
@@ -75,13 +77,18 @@ public class DanhGiaActivity extends AppCompatActivity {
                 float start = ratingBar.getRating();
 
                 i++;
+                //rating.setComment(txtComment.getText().toString());
+                //rating.setRating(ratingBar.getRating());
+                SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
+                String idStore = sharedPreferences.getString("IDSTORE", "");
+
+                SharedPreferences sharedPreferences1 = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+                final String idName = sharedPreferences1.getString("IDName", "");
                 rating.setComment(txtComment.getText().toString());
                 rating.setRating(ratingBar.getRating());
-
+                rating.setId_User(idName);
                 mData.child("MaxID").child("MaxID_Comments").setValue(i);
-
-                mData.child("Comment").child("Comment" + i).setValue(rating);
-
+                mData.child("Comment").child(idStore).child("Comment" + i).setValue(rating);
                 Toast.makeText(getApplicationContext(), "Đánh giá thành công!!!", Toast.LENGTH_SHORT).show();
                 final Intent intent = new Intent(DanhGiaActivity.this, TrangThaiActivity.class);
                 startActivity(intent);

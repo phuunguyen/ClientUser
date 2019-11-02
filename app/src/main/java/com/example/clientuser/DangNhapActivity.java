@@ -89,10 +89,12 @@ public class DangNhapActivity extends AppCompatActivity {
                         //saveUsers.setLogin(true);
                         Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         String idDN = arrUser.get(i).getId_Users();
+                        String idName = arrUser.get(i).getName();
                         Intent intent = new Intent(DangNhapActivity.this, ListCuaHangActivity.class);
                         final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("IDUSER", idDN).apply();
+                        editor.putString("IDName", idName).apply();
                         editor.commit();
                         startActivity(intent);
                         finish();

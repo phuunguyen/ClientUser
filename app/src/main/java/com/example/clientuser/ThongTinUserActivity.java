@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,13 +46,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Calendar;
 
-public class ThongTinUserActivity extends AppCompatActivity{
+public class ThongTinUserActivity extends AppCompatActivity {
 
     TextView txtName, txtEmail, txtAdress, txtPhone;
-    EditText edtName, edtEmail, edtAdress, edtPhone;
+    TextInputEditText edtName, edtEmail, edtAdress, edtPhone;
     Button btnDX;
-    ImageView imgAvt, imgVEdit, imgVSave;
-    ImageButton imgBack;
+    ImageView imgAvt, imgVEdit, imgVSave, imgBack;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_User = mData.child("Users");
     Users users = new Users();
@@ -68,7 +68,7 @@ public class ThongTinUserActivity extends AppCompatActivity{
 
     }
 
-    public void choosePhoto(){
+    public void choosePhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
@@ -99,29 +99,28 @@ public class ThongTinUserActivity extends AppCompatActivity{
         // Hien thong tin user
 
         //Log.d("AA1", idUser);
-         final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
         final String idUser = sharedPreferences.getString("IDUSER", null);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         Table_User.child(idUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() != null){
+                if (dataSnapshot.getValue() != null) {
                     //Log.d("AAA", dataSnapshot.child("address").getValue().toString());
                     txtName.setText(dataSnapshot.child("name").getValue().toString());
                     txtEmail.setText(dataSnapshot.child("email").getValue().toString());
                     txtAdress.setText(dataSnapshot.child("address").getValue().toString());
                     txtPhone.setText(dataSnapshot.child("phone").getValue().toString());
                 }
-                if(dataSnapshot.child("image").getValue() == null)
-                {
+                if (dataSnapshot.child("image").getValue() == null) {
                     //Toast.makeText(ThongTinUserActivity.this, "Khong co du lieu", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(imgAvt);
                     //imgAvt.setImageBitmap(dataSnapshot.child("image").getValue().toString());
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -155,6 +154,7 @@ public class ThongTinUserActivity extends AppCompatActivity{
 
 
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -166,7 +166,6 @@ public class ThongTinUserActivity extends AppCompatActivity{
                         choosePhoto();
                     }
                 });
-
 
 
             }
@@ -184,36 +183,37 @@ public class ThongTinUserActivity extends AppCompatActivity{
 
                 //mData.child("Users").child(idUser).child("image").setValue()
 
-                Calendar calendar = Calendar.getInstance();
-                StorageReference mountainsRef = mStorageRef.child("User " + calendar.getTimeInMillis() + ".png");
+                //Calendar calendar = Calendar.getInstance();
+                StorageReference mountainsRef = mStorageRef.child(idUser + ".png");
                 imgAvt.setDrawingCacheEnabled(true);
                 imgAvt.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) imgAvt.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] data = baos.toByteArray();
+                //Log.d("AAA", imgAvt.getDrawable().getClass().toString());
+                if (imgAvt.getDrawable().getClass().equals(BitmapDrawable.class)) {
+                    Bitmap bitmap = ((BitmapDrawable) imgAvt.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] data = baos.toByteArray();
+                    UploadTask uploadTask = mountainsRef.putBytes(data);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String photoLink = uri.toString();
+                                    mData.child("Users").child(idUser).child("image").setValue(photoLink);
+                                }
+                            });
 
-                UploadTask uploadTask = mountainsRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String photoLink = uri.toString();
-                                mData.child("Users").child(idUser).child("image").setValue(photoLink);
-                            }
-                        });
-
-                    }
-                });
-
+                        }
+                    });
+                }
 
 
                 imgVEdit.setVisibility(View.VISIBLE);
@@ -251,7 +251,7 @@ public class ThongTinUserActivity extends AppCompatActivity{
 
     }
 
-    public void setEvent(){
+    public void setEvent() {
         txtName = (TextView) findViewById(R.id.tvUserName);
         txtEmail = (TextView) findViewById(R.id.tvEmail);
         txtAdress = (TextView) findViewById(R.id.tvAdress);
@@ -261,10 +261,10 @@ public class ThongTinUserActivity extends AppCompatActivity{
         imgAvt = (ImageView) findViewById(R.id.imgProfile);
         imgVEdit = (ImageView) findViewById(R.id.imgVEdit);
         imgVSave = (ImageView) findViewById(R.id.imgVSave);
-        edtName = (EditText) findViewById(R.id.edtNameUser);
-        edtEmail = (EditText) findViewById(R.id.edtEmailUser);
-        edtAdress = (EditText) findViewById(R.id.edtAddressUser);
-        edtPhone = (EditText) findViewById(R.id.edtPhoneUser);
-        imgBack = (ImageButton) findViewById(R.id.imgButtonLeft);
+        edtName = (TextInputEditText) findViewById(R.id.edtNameUser);
+        //edtEmail = (EditText) findViewById(R.id.edtEmailUser);
+        edtAdress = (TextInputEditText) findViewById(R.id.edtAddressUser);
+        edtPhone = (TextInputEditText) findViewById(R.id.edtPhoneUser);
+        imgBack = (ImageView) findViewById(R.id.imgButtonLeft);
     }
 }
