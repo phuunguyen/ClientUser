@@ -50,8 +50,7 @@ public class DanhGiaActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent intent = new Intent(DanhGiaActivity.this, TrangThaiActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
         mData.child("MaxID").child("MaxID_Comments").addValueEventListener(new ValueEventListener() {
@@ -83,10 +82,10 @@ public class DanhGiaActivity extends AppCompatActivity {
                 String idStore = sharedPreferences.getString("IDSTORE", "");
 
                 SharedPreferences sharedPreferences1 = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
-                final String idName = sharedPreferences1.getString("IDName", "");
+                final String iduser = sharedPreferences1.getString("IDUSER", "");
                 rating.setComment(txtComment.getText().toString());
                 rating.setRating(ratingBar.getRating());
-                rating.setId_User(idName);
+                rating.setId_User(iduser);
                 mData.child("MaxID").child("MaxID_Comments").setValue(i);
                 mData.child("Comment").child(idStore).child("Comment" + i).setValue(rating);
                 Toast.makeText(getApplicationContext(), "Đánh giá thành công!!!", Toast.LENGTH_SHORT).show();
