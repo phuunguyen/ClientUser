@@ -12,13 +12,14 @@ public class Cart {
     String check;
     String delivery;
     String status;
+    String finish;
     String txtNgayTao;
     String imgStar;
 
     public Cart() {
     }
 
-    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, int quantity, String check, String delivery, String status, String txtNgayTao, String imgStar) {
+    public Cart(String idGioHang, String idUser, String idStore, String idProduct, String productImage, String productName, double productPrice, int quantity, String check, String delivery, String status, String txtNgayTao, String imgStar, String finish) {
         this.idGioHang = idGioHang;
         this.idUser = idUser;
         this.idStore = idStore;
@@ -32,6 +33,7 @@ public class Cart {
         this.status = status;
         this.txtNgayTao = txtNgayTao;
         this.imgStar = imgStar;
+        this.finish = finish;
     }
 
     public String getIdGioHang() {
@@ -136,5 +138,13 @@ public class Cart {
 
     public void setImgStar(String imgStar) {
         this.imgStar = imgStar;
+    }
+
+    public String getFinish() {
+        return finish;
+    }
+
+    public void setFinish(String finish) {
+        this.finish = finish;
     }
 }

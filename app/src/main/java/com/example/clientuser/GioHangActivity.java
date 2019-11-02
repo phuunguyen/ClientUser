@@ -119,19 +119,23 @@ public class GioHangActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countCart++;
-                addCartToDB();
-                Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-                data.clear();
-                adapter.notifyDataSetChanged();
-                txtTotalPrice.setText(0.0 + "");
+                try{
+                    countCart++;
+                    addCartToDB();
+                    Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                    data.clear();
+                    adapter.notifyDataSetChanged();
+                    txtTotalPrice.setText(0.0 + "");
+                }catch (Exception e){
+                    Log.d("Giohang", e.getMessage());
+                }
             }
         });
 
         imgListOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GioHangActivity.this, DanhGiaActivity.class));
+                startActivity(new Intent(GioHangActivity.this, ListOrderActivity.class));
             }
         });
     }

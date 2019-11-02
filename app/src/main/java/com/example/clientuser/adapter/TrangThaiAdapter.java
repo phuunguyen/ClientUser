@@ -30,7 +30,7 @@ public class TrangThaiAdapter extends ArrayAdapter<Cart> {
         this.data = data;
     }
 
-    static class TrangThaiHolder{
+    static class TrangThaiHolder {
         TextView txtMaDH, txtNgayTao;
         ImageView imgRating, imgSP;
     }
@@ -41,20 +41,19 @@ public class TrangThaiAdapter extends ArrayAdapter<Cart> {
         View row = convertView;
         TrangThaiHolder trangThaiHolder = null;
         if (row == null) {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
-            row = inflater.inflate(layoutID,parent, false);
+            row = inflater.inflate(layoutID, parent, false);
 
-            trangThaiHolder = new TrangThaiHolder();
-            trangThaiHolder.txtMaDH = row.findViewById(R.id.txtMaDonHang);
-            trangThaiHolder.txtNgayTao = row.findViewById(R.id.txtNgayTao);
-            trangThaiHolder.imgRating = row.findViewById(R.id.imgRating);
-            trangThaiHolder.imgSP = row.findViewById(R.id.imgSP);
+//            trangThaiHolder = new TrangThaiHolder();
+//            trangThaiHolder.txtMaDH = row.findViewById(R.id.txtMaDonHang);
+//            trangThaiHolder.txtNgayTao = row.findViewById(R.id.txtNgayTao);
+//            trangThaiHolder.imgRating = row.findViewById(R.id.imgRating);
+//            trangThaiHolder.imgSP = row.findViewById(R.id.imgSP);
 
             row.setTag(trangThaiHolder);
 
-        }
-        else {
+        } else {
             trangThaiHolder = (TrangThaiHolder) row.getTag();
         }
 
@@ -64,6 +63,6 @@ public class TrangThaiAdapter extends ArrayAdapter<Cart> {
         trangThaiHolder.txtNgayTao.setText(item.getTxtNgayTao());
         Picasso.get().load(item.getImgStar()).into(trangThaiHolder.imgRating);
 
-        return  row;
+        return row;
     }
 }

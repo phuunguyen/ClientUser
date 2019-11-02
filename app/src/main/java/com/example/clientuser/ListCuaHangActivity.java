@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
@@ -241,13 +242,26 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    boolean shouldAllowBack = false;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
-        if (!shouldAllowBack) {
-        } else {
-            super.onBackPressed();
+        if (doubleBackToExitPressedOnce) {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Nhấp vào phím quay về lần nữa để thoát ứng dụng", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
