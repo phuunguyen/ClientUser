@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,7 @@ public class DangKyActivity extends AppCompatActivity {
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_User = mData.child("Users");
     Users users = new Users();
+    ArrayList<Users> arrUser = new ArrayList();
     int i;
 
     @Override
@@ -140,6 +142,7 @@ public class DangKyActivity extends AppCompatActivity {
         edtPass = (TextInputEditText) findViewById(R.id.edtPassWord);
         edtPass1 = (TextInputEditText) findViewById(R.id.edtPassWord1);
     }
+
 
 
     private boolean isEmptyOrNull(String text) {

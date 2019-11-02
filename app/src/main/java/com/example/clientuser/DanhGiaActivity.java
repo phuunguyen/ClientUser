@@ -83,10 +83,12 @@ public class DanhGiaActivity extends AppCompatActivity {
                 String idStore = sharedPreferences.getString("IDSTORE", "");
 
                 SharedPreferences sharedPreferences1 = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
+                final String idUser = sharedPreferences1.getString("IDUSER", "");
                 final String idName = sharedPreferences1.getString("IDName", "");
                 rating.setComment(txtComment.getText().toString());
                 rating.setRating(ratingBar.getRating());
-                rating.setId_User(idName);
+                rating.setId_User(idUser);
+                rating.setId_Name(idName);
                 mData.child("MaxID").child("MaxID_Comments").setValue(i);
                 mData.child("Comment").child(idStore).child("Comment" + i).setValue(rating);
                 Toast.makeText(getApplicationContext(), "Đánh giá thành công!!!", Toast.LENGTH_SHORT).show();
