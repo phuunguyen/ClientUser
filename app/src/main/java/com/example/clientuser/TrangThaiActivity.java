@@ -29,10 +29,11 @@ import java.util.ArrayList;
 
 public class TrangThaiActivity extends AppCompatActivity {
     private RecyclerView lvDonHang;
-    ImageView btnDanhGia, btnBack;
+    ImageView btnDanhGia, btnBack, btnCheck, btnStatus, btnDelivery;
 
     ArrayList<Cart> data = new ArrayList<>();
-    CartAdapter adapter = null;FirebaseDatabase database = FirebaseDatabase.getInstance();
+    CartAdapter adapter = null;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData;
     DatabaseReference mDataCart = database.getReference("Cart");
     DatabaseReference mDataMaxID = database.getReference("MaxID");
@@ -40,6 +41,7 @@ public class TrangThaiActivity extends AppCompatActivity {
 
     ArrayList<String> listProductID = new ArrayList<>();
     ArrayList<String> listQuantityProduct = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,20 +83,23 @@ public class TrangThaiActivity extends AppCompatActivity {
         btnDanhGia = (ImageView) findViewById(R.id.btnDanhGia);
         lvDonHang = (RecyclerView) findViewById(R.id.lvDH);
         btnBack = (ImageView) findViewById(R.id.imgButtonLeft);
+        btnCheck = (ImageView) findViewById(R.id.btnCheck);
+        btnDelivery = (ImageView) findViewById(R.id.btnDelivery);
+        btnStatus = (ImageView) findViewById(R.id.btnStatus);
     }
 
-    private void getCartProduct(){
+    private void getCartProduct() {
         final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDCART", Context.MODE_PRIVATE);
-        final String cardID = sharedPreferences.getString("IDCART", null);
-        mDataCart.child(cardID).addValueEventListener(new ValueEventListener() {
+        final String cartID = sharedPreferences.getString("IDCART", null);
+        mDataCart.child(cartID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.child("id_product").getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.child("id_product").getChildren()) {
                     String product = snapshot.getValue().toString();
                     listProductID.add(product);
                 }
                 Log.e("---", listProductID.toString());
-                for(DataSnapshot snapshot : dataSnapshot.child("quantity").getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.child("quantity").getChildren()) {
                     String quantity = snapshot.getValue().toString();
                     listQuantityProduct.add(quantity);
                 }
@@ -116,8 +121,8 @@ public class TrangThaiActivity extends AppCompatActivity {
                 cart.setProductName(dataSnapshot.child("product_name").getValue().toString());
                 cart.setProductPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
 
-                for(int i = 0; i < listProductID.size(); i++){
-                    if (cart.getIdProduct().equals(listProductID.get(i))){
+                for (int i = 0; i < listProductID.size(); i++) {
+                    if (cart.getIdProduct().equals(listProductID.get(i))) {
                         cart.setQuantity(Integer.parseInt(listQuantityProduct.get(i)));
                         data.add(cart);
                     }
@@ -138,6 +143,36 @@ public class TrangThaiActivity extends AppCompatActivity {
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDataCart.child(cartID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.child("status").getValue().toString().equals("yes")) {
+                        btnStatus.setBackgroundResource(R.drawable.hlcircle);
+                    }
+
+                    if (dataSnapshot.child("check").getValue().toString().equals("yes")) {
+                        btnCheck.setBackgroundResource(R.drawable.hlcircle);
+                    }
+
+                    if (dataSnapshot.child("delivery").getValue().toString().equals("yes")) {
+                        btnDelivery.setBackgroundResource(R.drawable.hlcircle);
+                    }
+
+                    if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
+                        btnDanhGia.setBackgroundResource(R.drawable.hlcircle);
+                    }
+                } catch (Exception e) {
+                    Log.d("Status", e.getMessage());
+                }
             }
 
             @Override
