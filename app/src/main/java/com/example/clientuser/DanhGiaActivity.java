@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +76,15 @@ public class DanhGiaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String cmt = txtComment.getText().toString().trim();
                 float start = ratingBar.getRating();
+                if(!checkCmt(cmt)){
+                    Toast.makeText(DanhGiaActivity.this, "Vui lòng nhập đánh giá của bạn!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!checkRating(start)){
+                    Toast.makeText(DanhGiaActivity.this, "Vui lòng chọn số sao bạn muốn đánh giá!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 i++;
                 //rating.setComment(txtComment.getText().toString());
@@ -96,10 +106,18 @@ public class DanhGiaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    private boolean checkCmt(String cmt){
+        if(cmt != null && !TextUtils.isEmpty(cmt))
+            return true;
+        return false;
+    }
 
-
-
+    private boolean checkRating(float rating){
+        if(rating != 0)
+            return true;
+        return false;
     }
 
     private void setControl() {
