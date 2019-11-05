@@ -139,4 +139,10 @@ public class DoUongAdapter extends RecyclerView.Adapter<DoUongAdapter.ProductHol
     public void clearList() {
         listProduct.clear();
     }
+
+    public void clear() {
+        arrProduct.clear();
+        notifyDataSetChanged();
+    }
+
 }
