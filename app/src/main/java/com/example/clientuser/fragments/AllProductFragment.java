@@ -118,7 +118,7 @@ public class AllProductFragment extends Fragment {
                 // Stop animation (This will be after 3 seconds)
                 swipeContainer.setRefreshing(false);
             }
-        }, 4000); // Delay in millis
+        }, 3000); // Delay in millis
     }
 
     @Override

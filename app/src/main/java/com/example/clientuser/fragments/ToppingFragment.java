@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
 
 
 public class ToppingFragment extends Fragment {
+
+    private SwipeRefreshLayout swipeContainer;
     private RecyclerView lvDoUong;
     ArrayList<Product> data = new ArrayList<>();
     DoUongAdapter adapter = null;
@@ -41,6 +45,7 @@ public class ToppingFragment extends Fragment {
         // Inflate the layout for this fragment
         View row = inflater.inflate(R.layout.fragment_all_product, container, false);
         lvDoUong = (RecyclerView) row.findViewById(R.id.productList);
+        swipeContainer = (SwipeRefreshLayout)row.findViewById(R.id.swipeContainer);
         return row;
 
     }
@@ -54,11 +59,23 @@ public class ToppingFragment extends Fragment {
 
         lvDoUong.setLayoutManager(layoutManager);
         lvDoUong.setAdapter(adapter);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     public void loadData() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
         final String idStore = sharedPreferences.getString("IDSTORE", null);
+        adapter.clear();
         databaseReference.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -91,6 +108,12 @@ public class ToppingFragment extends Fragment {
 
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                // Stop animation (This will be after 3 seconds)
+                swipeContainer.setRefreshing(false);
+            }
+        }, 3000); // Delay in millis
     }
 
     @Override
