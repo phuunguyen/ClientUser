@@ -114,6 +114,7 @@ public class DangKyActivity extends AppCompatActivity {
                 if(checkEmailExist(email)){
                     i++;
                     dangKi(i);
+                    Log.d("+++", email);
                 }
 
 

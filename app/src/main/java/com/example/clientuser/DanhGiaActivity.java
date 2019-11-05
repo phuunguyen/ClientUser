@@ -81,7 +81,7 @@ public class DanhGiaActivity extends AppCompatActivity {
                 //rating.setRating(ratingBar.getRating());
                 SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
                 String idStore = sharedPreferences.getString("IDSTORE", "");
-
+                //Lua id Name
                 SharedPreferences sharedPreferences1 = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
                 final String idUser = sharedPreferences1.getString("IDUSER", "");
                 final String idName = sharedPreferences1.getString("IDName", "");
