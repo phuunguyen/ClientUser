@@ -83,16 +83,18 @@ public class BubbleTeaFragment extends Fragment {
                 data.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Product product = new Product();
-                    if (idStore.equals(snapshot.child("id_store").getValue().toString()) && snapshot.child("id_menu").getValue().equals("002")) {
-                        product.setIdProduct(snapshot.child("id_product").getValue().toString());
-                        if (snapshot.child("product_image").getValue() != null) {
-                            product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                    if (snapshot.child("id_store").getValue() != null) {
+                        if (idStore.equals(snapshot.child("id_store").getValue().toString()) && snapshot.child("id_menu").getValue().equals("002")) {
+                            product.setIdProduct(snapshot.child("id_product").getValue().toString());
+                            if (snapshot.child("product_image").getValue() != null) {
+                                product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                            }
+                            product.setNameProduct(snapshot.child("product_name").getValue().toString());
+                            product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
+                            data.add(product);
                         }
-                        product.setNameProduct(snapshot.child("product_name").getValue().toString());
-                        product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
-                        data.add(product);
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
                 }
             }
 

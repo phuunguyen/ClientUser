@@ -46,7 +46,7 @@ public class ToppingFragment extends Fragment {
         // Inflate the layout for this fragment
         View row = inflater.inflate(R.layout.fragment_all_product, container, false);
         lvDoUong = (RecyclerView) row.findViewById(R.id.productList);
-        swipeContainer = (SwipeRefreshLayout)row.findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) row.findViewById(R.id.swipeContainer);
         return row;
 
     }
@@ -81,18 +81,20 @@ public class ToppingFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Product product = new Product();
-                    if (idStore.equals(snapshot.child("id_store").getValue().toString()) && snapshot.child("id_menu").getValue().equals("003")) {
-                        product.setIdProduct(snapshot.child("id_product").getValue().toString());
-                        if (snapshot.child("product_image").getValue() != null) {
-                            product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                    if (snapshot.child("id_store").getValue() != null) {
+                        if (idStore.equals(snapshot.child("id_store").getValue().toString()) && snapshot.child("id_menu").getValue().equals("003")) {
+                            product.setIdProduct(snapshot.child("id_product").getValue().toString());
+                            if (snapshot.child("product_image").getValue() != null) {
+                                product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                            }
+                            product.setNameProduct(snapshot.child("product_name").getValue().toString());
+                            product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
+                            data.add(product);
                         }
-                        product.setNameProduct(snapshot.child("product_name").getValue().toString());
-                        product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
-                        data.add(product);
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -134,7 +136,8 @@ public class ToppingFragment extends Fragment {
 //            }
 //        });
         new Handler().postDelayed(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 // Stop animation (This will be after 3 seconds)
                 swipeContainer.setRefreshing(false);
             }
