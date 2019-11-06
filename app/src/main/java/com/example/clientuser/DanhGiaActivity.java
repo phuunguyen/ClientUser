@@ -51,8 +51,7 @@ public class DanhGiaActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent intent = new Intent(DanhGiaActivity.this, TrangThaiActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
         mData.child("MaxID").child("MaxID_Comments").addValueEventListener(new ValueEventListener() {

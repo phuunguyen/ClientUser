@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class ListOrderActivity extends AppCompatActivity {
     private ListView lvOrder;
     ArrayList<Order> data = new ArrayList<>();
     OrderAdapter adapter;
+    ImageView imgButtonLeft;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
@@ -43,10 +45,16 @@ public class ListOrderActivity extends AppCompatActivity {
 
     private void setControl() {
         lvOrder = (ListView) findViewById(R.id.lvOrder);
+        imgButtonLeft = (ImageView)findViewById(R.id.imgButtonLeft);
     }
 
     private void setEvent() {
-
+        imgButtonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         adapter = new OrderAdapter(this, R.layout.listview_item_order, data);
         lvOrder.setAdapter(adapter);
 

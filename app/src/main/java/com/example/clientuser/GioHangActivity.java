@@ -119,15 +119,19 @@ public class GioHangActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    countCart++;
-                    addCartToDB();
-                    Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-                    data.clear();
-                    adapter.notifyDataSetChanged();
-                    txtTotalPrice.setText(0.0 + "");
-                }catch (Exception e){
-                    Log.d("Giohang", e.getMessage());
+                if (data.isEmpty()) {
+                    Toast.makeText(GioHangActivity.this, "Bạn phải chọn đồ uống", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        countCart++;
+                        addCartToDB();
+                        Toast.makeText(GioHangActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                        data.clear();
+                        adapter.notifyDataSetChanged();
+                        txtTotalPrice.setText(0.0 + "");
+                    } catch (Exception e) {
+                        Log.d("Giohang", e.getMessage());
+                    }
                 }
             }
         });
@@ -203,7 +207,7 @@ public class GioHangActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Cart cart = new Cart();
                     if (snapshot.child("product_image").getValue() != null) {
                         cart.setProductImage(snapshot.child("product_image").getValue().toString());
