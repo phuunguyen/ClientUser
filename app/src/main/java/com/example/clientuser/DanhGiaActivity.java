@@ -102,8 +102,7 @@ public class DanhGiaActivity extends AppCompatActivity {
                 mData.child("MaxID").child("MaxID_Comments").setValue(i);
                 mData.child("Comment").child(idStore).child("Comment" + i).setValue(rating);
                 Toast.makeText(getApplicationContext(), "Đánh giá thành công!!!", Toast.LENGTH_SHORT).show();
-                final Intent intent = new Intent(DanhGiaActivity.this, TrangThaiActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
     }

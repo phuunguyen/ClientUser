@@ -146,8 +146,7 @@ public class DangKyActivity extends AppCompatActivity {
         txtNhapDeDN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DangKyActivity.this, DangNhapActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
     }
