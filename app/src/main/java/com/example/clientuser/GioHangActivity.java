@@ -205,7 +205,9 @@ public class GioHangActivity extends AppCompatActivity {
                 data.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Cart cart = new Cart();
-                    cart.setProductImage(snapshot.child("product_image").getValue().toString());
+                    if (snapshot.child("product_image").getValue() != null) {
+                        cart.setProductImage(snapshot.child("product_image").getValue().toString());
+                    }
                     cart.setIdProduct(snapshot.child("id_product").getValue().toString());
                     cart.setProductName(snapshot.child("product_name").getValue().toString());
                     cart.setProductPrice(Double.parseDouble(snapshot.child("price").getValue().toString()));

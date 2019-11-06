@@ -128,7 +128,9 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     final CuaHang store = new CuaHang();
                     store.setIdStore(snapshot.child("id_Store").getValue().toString());
-                    store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                    if(snapshot.child("image").getValue() != null){
+                        store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                    }
                     store.setShopName(snapshot.child("store_Name").getValue().toString());
                     store.setShopAddress(snapshot.child("address").getValue().toString());
                     store.setRating((double) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
@@ -153,7 +155,9 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
                     final CuaHang store = new CuaHang();
                     if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
                         store.setIdStore(snapshot.child("id_Store").getValue().toString());
-                        store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                        if(snapshot.child("image").getValue() != null){
+                            store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                        }
                         store.setShopName(snapshot.child("store_Name").getValue().toString());
                         store.setShopAddress(snapshot.child("address").getValue().toString());
                         store.setRating((double) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
