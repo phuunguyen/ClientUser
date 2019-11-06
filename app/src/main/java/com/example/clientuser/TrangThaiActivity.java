@@ -7,17 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.clientuser.adapter.CartAdapter;
 import com.example.clientuser.adapter.TrangThaiAdapter;
 import com.example.clientuser.model.Cart;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +36,8 @@ import java.util.ArrayList;
 public class TrangThaiActivity extends AppCompatActivity {
     private RecyclerView lvDonHang;
     ImageView btnDanhGia, btnBack, btnCheck, btnStatus, btnDelivery;
+    LinearLayout ln_btnHuy;
+    MaterialButton btnHuyDon;
 
     ArrayList<Cart> data = new ArrayList<>();
     CartAdapter adapter = null;
@@ -63,6 +71,13 @@ public class TrangThaiActivity extends AppCompatActivity {
             }
         });
 
+        btnHuyDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog();
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +101,9 @@ public class TrangThaiActivity extends AppCompatActivity {
         btnCheck = (ImageView) findViewById(R.id.btnCheck);
         btnDelivery = (ImageView) findViewById(R.id.btnDelivery);
         btnStatus = (ImageView) findViewById(R.id.btnStatus);
+        ln_btnHuy = (LinearLayout) findViewById(R.id.ln_btnHuy);
+        btnHuyDon = (MaterialButton) findViewById(R.id.btnHuyDon);
+
     }
 
     private void getCartProduct() {
@@ -157,10 +175,12 @@ public class TrangThaiActivity extends AppCompatActivity {
                 try {
                     if (dataSnapshot.child("status").getValue().toString().equals("yes")) {
                         btnStatus.setBackgroundResource(R.drawable.hlcircle);
+                        btnDanhGia.setEnabled(false);
                     }
 
                     if (dataSnapshot.child("check").getValue().toString().equals("yes")) {
                         btnCheck.setBackgroundResource(R.drawable.hlcircle);
+                        ln_btnHuy.setVisibility(View.GONE);
                     }
 
                     if (dataSnapshot.child("delivery").getValue().toString().equals("yes")) {
@@ -169,6 +189,7 @@ public class TrangThaiActivity extends AppCompatActivity {
 
                     if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
                         btnDanhGia.setBackgroundResource(R.drawable.hlcircle);
+                        btnDanhGia.setEnabled(true);
                     }
                 } catch (Exception e) {
                     Log.d("Status", e.getMessage());
@@ -180,5 +201,28 @@ public class TrangThaiActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void confirmDialog() {
+        new MaterialAlertDialogBuilder(new ContextThemeWrapper(this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog))
+                .setTitle("Hủy đơn hàng")
+                .setMessage("Bạn có muốn hủy đơn hàng này không?")
+                .setCancelable(false)
+                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDCART", Context.MODE_PRIVATE);
+                        final String cartID = sharedPreferences.getString("IDCART", null);
+                        mDataCart.child(cartID).removeValue();
+                        Toast.makeText(getApplicationContext(), "Hủy thành công", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                }).show();
     }
 }

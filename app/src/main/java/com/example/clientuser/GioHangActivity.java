@@ -199,58 +199,46 @@ public class GioHangActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        mDataProduct.addChildEventListener(new ChildEventListener() {
+        mDataProduct.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Cart cart = new Cart();
-                cart.setProductImage(dataSnapshot.child("product_image").getValue().toString());
-                cart.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
-                cart.setProductName(dataSnapshot.child("product_name").getValue().toString());
-                cart.setProductPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
-                Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
-                for (int i = 0; i < listProduct.size(); i++) {
-                    if (cart.getIdProduct().equals(listProduct.get(i))) {
-                        addElement(map, Integer.parseInt(listProduct.get(i)));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Cart cart = new Cart();
+                    cart.setProductImage(snapshot.child("product_image").getValue().toString());
+                    cart.setIdProduct(snapshot.child("id_product").getValue().toString());
+                    cart.setProductName(snapshot.child("product_name").getValue().toString());
+                    cart.setProductPrice(Double.parseDouble(snapshot.child("price").getValue().toString()));
+                    Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
+                    for (int i = 0; i < listProduct.size(); i++) {
+                        if (cart.getIdProduct().equals(listProduct.get(i))) {
+                            addElement(map, Integer.parseInt(listProduct.get(i)));
+                        }
                     }
-                }
 
-                for (Integer key : map.keySet()) {
-                    cart.setQuantity(map.get(key));
-                }
-
-                // Constructing HashSet using listWithDuplicateElements
-                Set<String> set = new HashSet<String>(listProduct);
-
-                // Constructing listWithoutDuplicateElements using set
-                listWithoutDuplicateElements = new ArrayList<String>(set);
-                for (int i = 0; i < listWithoutDuplicateElements.size(); i++) {
-                    if (cart.getIdProduct().equals(listWithoutDuplicateElements.get(i))) {
-                        data.add(cart);
+                    for (Integer key : map.keySet()) {
+                        cart.setQuantity(map.get(key));
                     }
+
+                    // Constructing HashSet using listWithDuplicateElements
+                    Set<String> set = new HashSet<String>(listProduct);
+
+                    // Constructing listWithoutDuplicateElements using set
+                    listWithoutDuplicateElements = new ArrayList<String>(set);
+                    for (int i = 0; i < listWithoutDuplicateElements.size(); i++) {
+                        if (cart.getIdProduct().equals(listWithoutDuplicateElements.get(i))) {
+                            data.add(cart);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+
+                    //Tính tổng tiền
+                    tong = 0.0;
+                    for (int i = 0; i < data.size(); i++) {
+                        tong += data.get(i).getQuantity() * data.get(i).getProductPrice();
+                    }
+                    txtTotalPrice.setText(tong + " VND");
                 }
-                adapter.notifyDataSetChanged();
-
-                //Tính tổng tiền
-                tong = 0.0;
-                for (int i = 0; i < data.size(); i++) {
-                    tong += data.get(i).getQuantity() * data.get(i).getProductPrice();
-                }
-                txtTotalPrice.setText(tong + " VND");
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override

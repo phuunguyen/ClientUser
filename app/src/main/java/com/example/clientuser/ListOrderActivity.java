@@ -46,7 +46,7 @@ public class ListOrderActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        loadData();
+
         adapter = new OrderAdapter(this, R.layout.listview_item_order, data);
         lvOrder.setAdapter(adapter);
 
@@ -102,5 +102,12 @@ public class ListOrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
     }
 }

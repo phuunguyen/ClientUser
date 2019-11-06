@@ -28,10 +28,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListCuaHangActivity extends AppCompatActivity implements View.OnClickListener{
+public class ListCuaHangActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtT;
     ListView lvDSCH;
@@ -58,6 +59,7 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
         initPreferences();
 
     }
+
     private void initPreferences() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -119,32 +121,20 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadData() {
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                final CuaHang store = new CuaHang();
-                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
-                store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
-                store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
-                store.setShopAddress(dataSnapshot.child("address").getValue().toString());
-                store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
-                data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    final CuaHang store = new CuaHang();
+                    store.setIdStore(snapshot.child("id_Store").getValue().toString());
+                    store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                    store.setShopName(snapshot.child("store_Name").getValue().toString());
+                    store.setShopAddress(snapshot.child("address").getValue().toString());
+                    store.setRating((double) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                    data.add(store);
+                }
                 adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -155,34 +145,22 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadDataSearch(final String storeName) {
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                final CuaHang store = new CuaHang();
-                if (dataSnapshot.child("store_Name").getValue().toString().equals(storeName)) {
-                    store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
-                    store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
-                    store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
-                    store.setShopAddress(dataSnapshot.child("address").getValue().toString());
-                    store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
-                    data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    final CuaHang store = new CuaHang();
+                    if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                        store.setIdStore(snapshot.child("id_Store").getValue().toString());
+                        store.setImageCuaHang(snapshot.child("image").getValue().toString());
+                        store.setShopName(snapshot.child("store_Name").getValue().toString());
+                        store.setShopAddress(snapshot.child("address").getValue().toString());
+                        store.setRating((double) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                        data.add(store);
+                    }
                 }
                 adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -237,7 +215,7 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        if(view == editor.putString("SHARED_PREFERENCES_IDUSER", "")){
+        if (view == editor.putString("SHARED_PREFERENCES_IDUSER", "")) {
             editor.commit();
         }
     }
@@ -248,7 +226,7 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
         }
@@ -260,7 +238,7 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

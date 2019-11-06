@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -81,31 +82,21 @@ public class AllProductFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
         final String idStore = sharedPreferences.getString("IDSTORE", null);
         adapter.clear();
-        databaseReference.child("Product").addChildEventListener(new ChildEventListener() {
+        databaseReference.child("Product").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Product product = new Product();
-                if (idStore.equals(dataSnapshot.child("id_store").getValue().toString())) {
-                    product.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
-                    product.setImgProduct(dataSnapshot.child("product_image").getValue().toString());
-                    product.setNameProduct(dataSnapshot.child("product_name").getValue().toString());
-                    product.setPriceProduct(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
-                    data.add(product);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Product product = new Product();
+                    if (idStore.equals(snapshot.child("id_store").getValue().toString())) {
+                        product.setIdProduct(snapshot.child("id_product").getValue().toString());
+                        product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                        product.setNameProduct(snapshot.child("product_name").getValue().toString());
+                        product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
+                        data.add(product);
+                    }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override

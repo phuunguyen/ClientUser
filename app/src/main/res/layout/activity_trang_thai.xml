@@ -4,34 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TrangThaiActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".TrangThaiActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/imgButtonLeft"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/imgButtonLeft"
-            android:src="@drawable/ic_arrow_back_black_24dp"
             android:layout_gravity="left|center"
-            />
+            android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trạng Thái"
-            android:textStyle="bold"
-            android:padding="15dp"
-            android:textSize="20sp"
             android:layout_gravity="center"
-            android:gravity="center">
-        </TextView>
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Trạng Thái"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
 
     </LinearLayout>
 
@@ -47,121 +44,142 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
-            <ImageButton
-                android:id="@+id/btnStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle"
-                android:layout_gravity="center"
-                android:src="@drawable/check"
-                ></ImageButton>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chờ xác nhận"
-                android:textSize="12sp"></TextView>
-
-        </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/line"
-            android:layout_gravity="center"></ImageView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="5dp">
-        <ImageButton
-            android:id="@+id/btnCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle"
-            android:layout_gravity="center"
-            android:src="@drawable/cefe"></ImageButton>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chờ lấy hàng"
-            android:textSize="12sp"></TextView>
-
-    </LinearLayout>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/line"
-            android:layout_gravity="center"></ImageView>
+        android:weightSum="2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:id="@+id/ln_btnHuy"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/btnDelivery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle"
-            android:layout_gravity="center"
-            android:src="@drawable/moto"></ImageButton>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  Đang giao  "
-            android:textSize="12sp"></TextView>
-
-    </LinearLayout>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/line"
-            android:layout_gravity="center"></ImageView>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
-
-        <ImageButton
-            android:id="@+id/btnDanhGia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle"
-            android:layout_gravity="center"
-            android:src="@drawable/star"
-            ></ImageButton>
-
-            <TextView
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHuyDon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="     Đánh giá  "
-                android:textSize="12sp"
-                android:layout_gravity="center"></TextView>
+                android:text="Hủy đơn hàng">
 
+            </com.google.android.material.button.MaterialButton>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/check"></ImageButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chờ xác nhận"
+                    android:textSize="12sp"></TextView>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/line"></ImageView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/cefe"></ImageButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chờ lấy hàng"
+                    android:textSize="12sp"></TextView>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/line"></ImageView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnDelivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/moto"></ImageButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Đang giao  "
+                    android:textSize="12sp"></TextView>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/line"></ImageView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnDanhGia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/star"></ImageButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="     Đánh giá  "
+                    android:textSize="12sp"></TextView>
+
+            </LinearLayout>
         </LinearLayout>
 
 
-
-
     </LinearLayout>
-
 
 
 </LinearLayout>
