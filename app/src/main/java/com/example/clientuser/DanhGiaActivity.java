@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,8 @@ public class DanhGiaActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                final Intent intent = new Intent(DanhGiaActivity.this, TrangThaiActivity.class);
+                startActivity(intent);
             }
         });
         mData.child("MaxID").child("MaxID_Comments").addValueEventListener(new ValueEventListener() {
@@ -74,18 +76,29 @@ public class DanhGiaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String cmt = txtComment.getText().toString().trim();
                 float start = ratingBar.getRating();
+                if(!checkCmt(cmt)){
+                    Toast.makeText(DanhGiaActivity.this, "Vui lòng nhập đánh giá của bạn!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!checkRating(start)){
+                    Toast.makeText(DanhGiaActivity.this, "Vui lòng chọn số sao bạn muốn đánh giá!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 i++;
                 //rating.setComment(txtComment.getText().toString());
                 //rating.setRating(ratingBar.getRating());
                 SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
                 String idStore = sharedPreferences.getString("IDSTORE", "");
-
+                //Lua id Name
                 SharedPreferences sharedPreferences1 = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
-                final String iduser = sharedPreferences1.getString("IDUSER", "");
+                final String idUser = sharedPreferences1.getString("IDUSER", "");
+                final String idName = sharedPreferences1.getString("IDName", "");
                 rating.setComment(txtComment.getText().toString());
                 rating.setRating(ratingBar.getRating());
-                rating.setId_User(iduser);
+                rating.setId_User(idUser);
+                rating.setId_Name(idName);
                 mData.child("MaxID").child("MaxID_Comments").setValue(i);
                 mData.child("Comment").child(idStore).child("Comment" + i).setValue(rating);
                 Toast.makeText(getApplicationContext(), "Đánh giá thành công!!!", Toast.LENGTH_SHORT).show();
@@ -93,10 +106,18 @@ public class DanhGiaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    private boolean checkCmt(String cmt){
+        if(cmt != null && !TextUtils.isEmpty(cmt))
+            return true;
+        return false;
+    }
 
-
-
+    private boolean checkRating(float rating){
+        if(rating != 0)
+            return true;
+        return false;
     }
 
     private void setControl() {

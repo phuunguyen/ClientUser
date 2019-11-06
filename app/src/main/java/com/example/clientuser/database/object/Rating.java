@@ -3,15 +3,17 @@ package com.example.clientuser.database.object;
 public class Rating {
     String id_Store;
     String id_User;
+    String id_Name;
     String comment;
     float rating;
 
     public Rating() {
     }
 
-    public Rating(String id_Store, String id_User, String comment, float rating) {
+    public Rating(String id_Store, String id_User, String id_Name, String comment, float rating) {
         this.id_Store = id_Store;
         this.id_User = id_User;
+        this.id_Name = id_Name;
         this.comment = comment;
         this.rating = rating;
     }
@@ -30,6 +32,14 @@ public class Rating {
 
     public void setId_User(String id_User) {
         this.id_User = id_User;
+    }
+
+    public String getId_Name() {
+        return id_Name;
+    }
+
+    public void setId_Name(String id_Name) {
+        this.id_Name = id_Name;
     }
 
     public String getComment() {
