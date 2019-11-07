@@ -276,12 +276,12 @@ public class GioHangActivity extends AppCompatActivity {
             mDataCart.child("Cart" + countCart).child("id_product").child(String.valueOf(i)).setValue(data.get(i).getIdProduct());
             mDataCart.child("Cart" + countCart).child("quantity").child(String.valueOf(i)).setValue(data.get(i).getQuantity());
         }
-        mDataCart.child("Cart" + countCart).child("price").setValue(tong);
         mDataCart.child("Cart" + countCart).child("status").setValue("yes");
         mDataCart.child("Cart" + countCart).child("delivery").setValue("no");
         mDataCart.child("Cart" + countCart).child("check").setValue("no");
+        mDataCart.child("Cart" + countCart).child("total").setValue(txtTotalPrice.getText().toString());
         Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat("hh:mm a dd/MM/yyyy");
         mDataCart.child("Cart" + countCart).child("ngaytao").setValue(ft.format(date));
 
         mDataMaxID.child("MaxID_Cart").setValue(countCart);
