@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.clientuser.adapter.CartAdapter;
 import com.example.clientuser.adapter.DoUongAdapter;
 import com.example.clientuser.model.Cart;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +56,9 @@ public class GioHangActivity extends AppCompatActivity {
     ImageView imgButtonLeft, imgListOrder;
     TextView txtTotalPrice;
     Button btnOrder;
+    ImageView imgDataNull;
+    LinearLayout linear_DataNull, linear_DataNotNull, linear_DatHang;
+    MaterialButton btnChonMon;
 
     ArrayList<Cart> data = new ArrayList<>();
     CartAdapter adapter = null;
@@ -86,6 +90,24 @@ public class GioHangActivity extends AppCompatActivity {
             listProduct = getArrayList("listProduct");
             loadData();
         }
+
+        imgDataNull.setImageResource(R.drawable.chonmon);
+        imgDataNull.setAlpha(127);
+
+        try {
+            if (!listProduct.isEmpty()) {
+                linear_DataNull.setVisibility(View.GONE);
+                linear_DataNotNull.setVisibility(View.VISIBLE);
+                linear_DatHang.setVisibility(View.VISIBLE);
+            } else {
+                linear_DataNull.setVisibility(View.VISIBLE);
+                linear_DataNotNull.setVisibility(View.GONE);
+                linear_DatHang.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         adapter = new CartAdapter(this, data);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -142,6 +164,12 @@ public class GioHangActivity extends AppCompatActivity {
                 startActivity(new Intent(GioHangActivity.this, ListOrderActivity.class));
             }
         });
+        btnChonMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void setControl() {
@@ -151,6 +179,11 @@ public class GioHangActivity extends AppCompatActivity {
         txtTotalPrice = (TextView) findViewById(R.id.totalPrice);
         btnOrder = (Button) findViewById(R.id.btnOrder);
         coordinatorLayout = (LinearLayout) findViewById(R.id.coordinatorLayout);
+        linear_DataNotNull = (LinearLayout) findViewById(R.id.linear_DataNotNull);
+        linear_DataNull = (LinearLayout) findViewById(R.id.linear_DataNull);
+        linear_DatHang = (LinearLayout) findViewById(R.id.linear_DatHang);
+        imgDataNull = (ImageView) findViewById(R.id.imgDataNull);
+        btnChonMon = (MaterialButton) findViewById(R.id.btn_chonMon);
     }
 
     private void enableSwipeToDeleteAndUndo() {
@@ -164,6 +197,11 @@ public class GioHangActivity extends AppCompatActivity {
                 doUongAdapter.deleteItem(item.getIdProduct());
                 adapter.removeItem(position);
 
+                if(adapter.getItemCount() == 0){
+                    linear_DataNull.setVisibility(View.VISIBLE);
+                    linear_DataNotNull.setVisibility(View.GONE);
+                    linear_DatHang.setVisibility(View.GONE);
+                }
 
                 tong = 0.0;
 
@@ -180,7 +218,11 @@ public class GioHangActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         doUongAdapter.restoreItem(item.getIdProduct());
                         adapter.restoreItem(item, position);
-
+                        if(adapter.getItemCount() > 0){
+                            linear_DataNull.setVisibility(View.GONE);
+                            linear_DataNotNull.setVisibility(View.VISIBLE);
+                            linear_DatHang.setVisibility(View.VISIBLE);
+                        }
                         tong = 0.0;
 
                         for (int j = 0; j < data.size(); j++) {
@@ -281,7 +323,7 @@ public class GioHangActivity extends AppCompatActivity {
         mDataCart.child("Cart" + countCart).child("check").setValue("no");
         mDataCart.child("Cart" + countCart).child("total").setValue(txtTotalPrice.getText().toString());
         Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("hh:mm a dd/MM/yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat("HH:MM dd/MM/yyyy");
         mDataCart.child("Cart" + countCart).child("ngaytao").setValue(ft.format(date));
 
         mDataMaxID.child("MaxID_Cart").setValue(countCart);
