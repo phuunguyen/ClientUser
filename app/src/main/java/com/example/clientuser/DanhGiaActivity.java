@@ -34,8 +34,11 @@ public class DanhGiaActivity extends AppCompatActivity {
     Button btnSubmit;
     RatingBar ratingBar;
     ImageButton btnBack;
-
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference Table_Comment = mData.child("Comment");
+    DatabaseReference Table_Store = mData.child("Store");
+    SharedPreferences sharedPreferences;
+    String idLogin = "";
     Rating rating = new Rating();
     int i;
 
@@ -45,6 +48,7 @@ public class DanhGiaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_danh_gia);
         setControl();
         setEvent();
+        ratingStore();
     }
 
     private void setEvent() {
@@ -106,6 +110,34 @@ public class DanhGiaActivity extends AppCompatActivity {
         });
     }
 
+    public void ratingStore() {
+        Table_Comment.child(idLogin).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double total = 0.0;
+                double count = 0.0;
+                double average = 0.0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    double rating = Double.parseDouble(ds.child("rating").getValue().toString());
+                    total = total + rating;
+                    count = count + 1;
+                    average = total / count;
+                }
+                String s = String.valueOf(average);
+                Log.d("---", s);
+                //ratingBar.setRating(Float.parseFloat(String.valueOf(average[0])));
+                Table_Store.child(idLogin).child("rating").setValue(average);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
     private boolean checkCmt(String cmt){
         if(cmt != null && !TextUtils.isEmpty(cmt))
             return true;
@@ -123,5 +155,8 @@ public class DanhGiaActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnGui);
         ratingBar = findViewById(R.id.ratingDG);
         btnBack = findViewById(R.id.imgButtonLeft);
+        sharedPreferences = getApplicationContext().getSharedPreferences("SHARED_PREFERENCES_IDSTORE",
+                Context.MODE_PRIVATE);
+        idLogin = sharedPreferences.getString("IDSTORE", "");
     }
 }
