@@ -86,7 +86,7 @@ public class CoffeeFragment extends Fragment {
                 data.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Product product = new Product();
-                    if (snapshot.child("id_store").getValue() != null) {
+                    if (snapshot.child("id_store").getValue() != null && snapshot.child("id_menu").getValue() != null) {
                         if (idStore.equals(snapshot.child("id_store").getValue().toString()) && snapshot.child("id_menu").getValue().equals("001")) {
                             product.setIdProduct(snapshot.child("id_product").getValue().toString());
                             if (snapshot.child("product_image").getValue() != null) {
