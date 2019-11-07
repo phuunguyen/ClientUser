@@ -103,26 +103,22 @@ public class ListDoUongActivity extends AppCompatActivity {
         databaseReference.child("Store").child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tvPhone.setText(dataSnapshot.child("phone").getValue().toString());
-                tvShopAddress.setText(dataSnapshot.child("address").getValue().toString());
-                tvShopName.setText(dataSnapshot.child("store_Name").getValue().toString());
-//                if (dataSnapshot.child("id_Store").getValue() == null) {
-//                    new MaterialAlertDialogBuilder(new ContextThemeWrapper(getApplicationContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog))
-//                            .setTitle("Không có dữ liệu")
-//                            .setMessage("Cửa hàng này đã bị xóa")
-//                            .setCancelable(false)
-//                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    onBackPressed();
-//                                }
-//                            }).show();
-//                } else {
-//                    tvPhone.setText(dataSnapshot.child("phone").getValue().toString());
-//                    tvShopAddress.setText(dataSnapshot.child("address").getValue().toString());
-//                    tvShopName.setText(dataSnapshot.child("store_Name").getValue().toString());
-//                }
-
+                if (dataSnapshot.child("id_Store").getValue() == null) {
+                    new MaterialAlertDialogBuilder(new ContextThemeWrapper(ListDoUongActivity.this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog))
+                            .setTitle("Không có dữ liệu")
+                            .setMessage("Cửa hàng này đã bị xóa")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    onBackPressed();
+                                }
+                            }).show();
+                } else {
+                    tvPhone.setText(dataSnapshot.child("phone").getValue().toString());
+                    tvShopAddress.setText(dataSnapshot.child("address").getValue().toString());
+                    tvShopName.setText(dataSnapshot.child("store_Name").getValue().toString());
+                }
             }
 
             @Override
