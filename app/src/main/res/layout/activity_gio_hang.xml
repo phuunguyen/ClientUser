@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/imgButtonLeft"
@@ -42,9 +42,9 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:gravity="center"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/imgListOrder"
@@ -58,9 +58,45 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linear_DataNull"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_weight="5"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgDataNull"
+            android:layout_width="128dp"
+            android:layout_height="128dp">
+
+        </ImageView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Bạn phải chọn đồ uống"
+            android:textSize="20sp">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_chonMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn đồ uống">
+
+        </com.google.android.material.button.MaterialButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_DataNotNull"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lvCart"
@@ -73,10 +109,12 @@
 
 
     <LinearLayout
+        android:id="@+id/linear_DatHang"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"

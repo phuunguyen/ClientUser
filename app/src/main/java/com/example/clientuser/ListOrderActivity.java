@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,37 +73,23 @@ public class ListOrderActivity extends AppCompatActivity {
     private void loadData() {
         final SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_IDUSER", Context.MODE_PRIVATE);
         final String idUser = sharedPreferences.getString("IDUSER", null);
-        mData.child("Cart").addChildEventListener(new ChildEventListener() {
+        mData.child("Cart").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Order order = new Order();
-                try {
-                    if (dataSnapshot.child("id_user").getValue().toString().equals(idUser)) {
-                        order.setImageOrder(R.drawable.logoapp);
-                        order.setTxtMaDonHang(dataSnapshot.child("id_donhang").getValue().toString());
-                        order.setTxtNgayTao(dataSnapshot.child("ngaytao").getValue().toString());
-                        data.add(order);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Order order = new Order();
+                    try {
+                        if (snapshot.child("id_user").getValue().toString().equals(idUser)) {
+                            order.setImageOrder(R.drawable.logoapp);
+                            order.setTxtMaDonHang(snapshot.child("id_donhang").getValue().toString());
+                            order.setTxtNgayTao(snapshot.child("ngaytao").getValue().toString());
+                            data.add(order);
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(ListOrderActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
-                    Toast.makeText(ListOrderActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
                 }
-
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override

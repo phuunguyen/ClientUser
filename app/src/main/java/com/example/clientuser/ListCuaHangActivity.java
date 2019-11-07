@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListCuaHangActivity extends AppCompatActivity implements View.OnClickListener {
+public class    ListCuaHangActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtT;
     ListView lvDSCH;
