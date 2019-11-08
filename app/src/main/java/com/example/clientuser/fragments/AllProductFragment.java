@@ -86,19 +86,24 @@ public class AllProductFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
+                adapter.notifyDataSetChanged();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Product product = new Product();
                     if (snapshot.child("id_store").getValue() != null) {
-                        if (idStore.equals(snapshot.child("id_store").getValue().toString())) {
-                            product.setIdProduct(snapshot.child("id_product").getValue().toString());
-                            if (snapshot.child("product_image").getValue() != null) {
-                                product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                        try {
+                            if (idStore.equals(snapshot.child("id_store").getValue().toString())) {
+                                product.setIdProduct(snapshot.child("id_product").getValue().toString());
+                                if (snapshot.child("product_image").getValue() != null) {
+                                    product.setImgProduct(snapshot.child("product_image").getValue().toString());
+                                }
+                                product.setNameProduct(snapshot.child("product_name").getValue().toString());
+                                product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
+                                data.add(product);
                             }
-                            product.setNameProduct(snapshot.child("product_name").getValue().toString());
-                            product.setPriceProduct(Double.parseDouble(snapshot.child("price").getValue().toString()));
-                            data.add(product);
+                            adapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        adapter.notifyDataSetChanged();
                     }
                 }
             }
