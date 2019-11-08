@@ -180,25 +180,16 @@ public class ListCuaHangActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadNameStore() {
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                listStoreName.add(dataSnapshot.child("store_Name").getValue().toString());
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
+                        listStoreName.add(snapshot.child("store_Name").getValue().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
